@@ -1,13 +1,23 @@
-= form_for @user, remote: false, url: {action: :create} do |f|
-  = f.label :name
-  = f.text_field :name, placeholder: "John Doe"
-  br
-  = f.label :email
-  = f.email_field :email, placeholder: "test@example.com"
-  br
-  = f.label :password
-  = f.password_field :password, placeholder: "password"
-  br
-  = f.label :password_confirmation
-  = f.password_field :password_confirmation, placeholder: "password"
-  = f.submit
+.container
+  .row
+    .col-md-6.offset-md-3
+      .card
+        .card-header Signin
+        
+        = form_for @user, remote: false, url: {action: :create} do |f|
+          .form-group
+            = f.label :name
+            = f.text_field :name, placeholder: "John Doe", class: "form-control"
+          br
+          .form-group
+            = f.label :email
+            = f.email_field :email, placeholder: "test@example.com", class: "form-control"
+          br
+          .form-group
+            = f.label :password
+            = f.password_field :password, placeholder: "password", class: "form-control"
+          br
+          .form-group
+            = f.label :password_confirmation
+          =   f.password_field :password_confirmation, placeholder: "password", class: "form-control"
+          = f.submit 'Signin', class: "btn btn-primary btn-block"

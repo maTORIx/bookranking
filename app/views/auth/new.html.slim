@@ -1,9 +1,17 @@
-= form_for @user, remote: false, url: {action: :create} do |f|
-  = f.label :email
-  = f.email_field :email, placeholder: "test@example.com"
-  br
-  = f.label :password
-  = f.password_field :password, placeholder: "password"
-  br
-  = f.submit
+.container
+  .row
+    .col-md-6.offset-md-3
+      .card
+        .card-header Login
+        = form_for @user, remote: false, url: {action: :create} do |f|
+         .form-group
+         = f.label :email
+         = f.email_field :email, placeholder: "test@example.com", class: "form-control"
+         br
+         .form-group
+         = f.label :password
+         = f.password_field :password, placeholder: "password", class: "form-control"
+         br
+         = f.submit 'Login', class: "btn btn-primary btn-block"
+           
   

@@ -5,17 +5,18 @@ class AuthController < ApplicationController
   end
 
   def create
-    @user = User.find_by(email: params[:email])
-    if @user && @user.authenticate(params[:password])
+    login_params = params.require("user").permit(:email, :password)
+    @user = User.find_by(email: login_params[:email])
+    if @user && @user.authenticate(login_params[:password])
       session[:user_id] = @user.id
-      redirect_to home
+      redirect_to root_path
     else
-      redirect_to new
+      redirect_to new_auth_url
     end
   end
 
   def destroy
-    session.reset!
-    redirect_to new
+    session.clear
+    redirect_to new_auth_url
   end
 end
