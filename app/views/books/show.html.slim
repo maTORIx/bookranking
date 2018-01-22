@@ -1,0 +1,24 @@
+.container
+  .row
+    .col-md-4
+      .card
+        img.card-img-top(alt="image" src="#{@book.cover_image.url}")
+        
+    .col-md-8
+      .card
+        h4.card-header #{@book.title}
+        ul.nav.nav-tabs(role="tablist")
+          li.nav-item
+            a.nav-link.nav-active(data-toggle="tab" href="#status" role="tab") status
+          li.nav-item
+            a.nav-link.nav-active(data-toggle="tab" href="#description" role="tab") description
+          li.nav-item
+            a.nav-link.nav-active(data-toggle="tab" href="#links" role="tab") links
+        .tab-content
+          #status.tab-pane.active(role="tabpanel")
+            .card-body
+              p.break #{@book.description}
+          #description.tab-pane.active(role="tabpanel")
+          #links.tab-pane.active(role="tabpanel")
+          
+        

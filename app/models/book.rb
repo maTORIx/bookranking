@@ -1,4 +1,5 @@
 class Book < ApplicationRecord
+  mount_uploader :cover_image, BookCoverUploader
 
   has_many :reviews
 
