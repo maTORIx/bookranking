@@ -5,10 +5,12 @@ Rails.application.routes.draw do
   resources :auth, except:[:index, :update, :edit, :show] do
   end
 
-  resources :user, except:[:index, :show] do
+  resources :user, except:[:index] do
   end
 
-  resources :books, except: [:index] do
+  resources :books, except: [:index]  do
+    resources :reviews, except: [:index, :show] do
+    end
   end
 
 end

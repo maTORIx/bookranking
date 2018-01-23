@@ -11,6 +11,9 @@ create_table :books, force: :cascade do |t|
   t.float :simple_point, null: true, default: 0
   t.float :review_point, null: true, default: 0
 
+  t.integer :review_length
+  t.integer :shelfed_length
+
   t.datetime :created_at, null: false
   t.datetime :updated_at, null: false
 

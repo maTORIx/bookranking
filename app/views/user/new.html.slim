@@ -4,7 +4,7 @@
       .card
         .card-header Signin
         
-        = form_for @user, remote: false, url: {action: :create} do |f|
+        = form_for @user, remote: false, url: new_user do |f|
           .form-group
             = f.label :name
             = f.text_field :name, placeholder: "John Doe", class: "form-control"

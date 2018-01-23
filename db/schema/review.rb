@@ -4,7 +4,7 @@ create_table :reviews, force: :cascade do |t|
   t.integer :book_id, null: false
   t.integer :user_id, null: false
   t.integer :point, null: false
-  t.text :comment, null: true
+  t.text :body, null: true
 
   t.datetime :created_at, null: false
   t.datetime :updated_at, null: false

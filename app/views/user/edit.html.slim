@@ -1,0 +1,11 @@
+.container
+  .row
+    .col-md-6.offset-md-3
+      .card
+        .card-header Signin
+        
+        = form_for @user, remote: false do |f|
+          .form-group
+            = f.label :icon
+            = f.file_field :icon
+          button.btn.btn-primary.btn-block(type="submit") Send

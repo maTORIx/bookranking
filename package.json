@@ -1,5 +1,12 @@
 {
   "name": "bookranking",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "@rails/webpacker": "^3.2.1",
+    "coffeescript": "1.12.7",
+    "vue": "^2.5.13"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^2.11.1"
+  }
 }

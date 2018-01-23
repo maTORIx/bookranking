@@ -16,3 +16,29 @@
 .break {
   white-space:pre-wrap;
 }
+
+.stars {
+  position: relative;
+  display: inline-block;
+  font-size: 24px;
+
+  .star-back {
+    color: #ccc;
+    display: inline-block;
+  }
+  
+  .star {
+    position: absolute;
+    white-space: nowrap;
+    display: inline-block;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+  }
+
+  .star-point {
+    margin-left: 10px;
+    float: right; 
+  }
+}
+
