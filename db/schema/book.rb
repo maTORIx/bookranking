@@ -8,8 +8,8 @@ create_table :books, force: :cascade do |t|
   t.date :release_date, null: true
   t.string :cover_image, null: true
 
-  t.float :simple_point, null: true
-  t.float :review_point, null: true
+  t.float :simple_point, null: true, default: 0
+  t.float :review_point, null: true, default: 0
 
   t.datetime :created_at, null: false
   t.datetime :updated_at, null: false
