@@ -11,7 +11,7 @@ class UserController < ApplicationController
   def create
     user_params = params.require(:user).permit(:name, :email, :password, :password_confirmation)
     @user = User.create(user_params)
-    redirect_to new_auth
+    redirect_to new_auth_url
   end
   
   def edit

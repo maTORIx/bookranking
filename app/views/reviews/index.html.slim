@@ -1,0 +1,4 @@
+- @reviews.each do |review|
+  h4 #{review.user.name}
+  p #{review.body}
+= paginate @reviews

@@ -6,6 +6,18 @@
 //
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
-var vue = require("vue")
-
-1
+//import Vue from "vue/dist/vue.min.js"
+//
+//document.addEventListener("DOMContentLoaded", function(){
+//  var app = new Vue({
+//    el: "#layout",
+//    data: {
+//      hello: "hello world"
+//      },
+//    methods: {
+//      redirect_to: function(url) {
+//        location.href = url
+//      }
+//    }
+//  })
+//})

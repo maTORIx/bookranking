@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   end
 
   resources :books, except: [:index]  do
-    resources :reviews, except: [:index, :show] do
+    resources :reviews, except: [:show] do
     end
   end
 

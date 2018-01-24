@@ -19,26 +19,61 @@
 
 .stars {
   position: relative;
-  display: inline-block;
+  display: flex;
+  align-items: center;
   font-size: 24px;
+  .stars-box {
 
-  .star-back {
-    color: #ccc;
-    display: inline-block;
-  }
-  
-  .star {
-    position: absolute;
-    white-space: nowrap;
-    display: inline-block;
-    top: 0;
-    left: 0;
-    overflow: hidden;
+    width: 105px;
+
+    .star-back {
+      z-index: 1;
+      color: #ccc;
+      display: inline-block;
+    }
+    
+    .star {
+      z-index: 2;
+      position: absolute;
+      max-width: 105px;
+      white-space: nowrap;
+      display: inline-block;
+      overflow: hidden;
+    }
+
+    .star-rating {
+      z-index: 3;
+      max-width: 105px;
+      white-space: nowrap;
+      position: absolute;
+      overflow: hidden;
+    }
   }
 
   .star-point {
     margin-left: 10px;
-    float: right; 
+    float: right;
   }
 }
 
+.card.review {
+  .card-header {
+
+    display: flex;
+    align-items: center;
+
+    .user_icon {
+      width: 60px;
+      height: 60px;
+    }
+    .user_profile {
+      margin-left: 15px;
+      .point {
+        font-size: 24px;
+      }
+      .info {
+        display: flex;
+      }
+    }
+  }
+}

@@ -11,5 +11,7 @@ class Book < ApplicationRecord
 
   has_many :category_relations
   has_many :category, through: :category_relations
+  
+  has_many :stars
 
 end
