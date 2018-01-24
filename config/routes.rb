@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   resources :books, except: [:index]  do
     resources :reviews, except: [:show] do
     end
+    resources :stars, only: [:create] do
+    end
   end
 
 end
