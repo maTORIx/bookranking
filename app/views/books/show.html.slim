@@ -1,4 +1,10 @@
 = javascript_pack_tag "books.js"
+#notify
+  div(v-for="notify in notifies")
+    .alert.alert-warning.alert-dismissible.fade.show(role='alert')
+      button.close(type='button' data-dismiss='alert' aria-label='Close')
+          span(aria-hidden='true') &times;
+      = "{{notify}}"
 .container
   .row
     .col-md-4
@@ -7,7 +13,10 @@
         
     .col-md-8
       .card
-        h4.card-header #{@book.title}
+        .card-header.button-header
+          h4.header-text #{@book.title}
+          - if loged_in?
+            = button_to "BookShelf", user_book_shelf_index_path(current_user, book_shelf_relation:{book_id: @book.id}), method: :post, class: "btn btn-primary", title: "Insert in bookshelf"
         ul.nav.nav-tabs(role="tablist")
           li.nav-item
             a.nav-link.active(data-toggle="tab" href="#status" role="tab") status
@@ -20,33 +29,59 @@
             .card-body
               .stars
                 .stars-box
-                  #star.star(style="width: #{@book.simple_point * 21}px;") ★★★★★
+                  #star.star(style="width: #{@book.simple_point * 21}px;" v-on:mouseover="judgeStar") ★★★★★
                   #star-rating.star-rating(v-on:mouseleave="stopJudge" v-html="judged_star" v-on:click="sendStar(judged_star)")
                   #star-back.star-back(v-on:mouseover="judgeStar" v-on:click="test()") ★★★★★
                 .star-point #{@book.simple_point}
+                
+              button.badge.badge-pill.badge-info(data-toggle="modal" data-target="#tagModal") New Tag
+              //tag-modal
+              #tagModal.modal.fade(tabindex="-1" role="dialog" aria-labelledby="tagModalLabel" aria-hidden="true")
+                .modal-dialog(role="document")
+                  .modal-content
+                    .modal-header
+                      #tagModalLabel.modal-title New Tag
+                      button.close(type="button" data-dismiss="modal" aria-label="Close")
+                        span(area-hidden="true") &times;
+                    .modal-body
+                      = form_for [@book, @tag], remote: false do |f|
+                        .form-group
+                          = f.text_field :name, placeholder: "Tag Name", class: "form-control"
+                        .modal-footer
+                          button.btn.btn-secondary(type="button" data-dismiss="modal") Close
+                          button.btn.btn-primary(type="submit") Save
+
+              - @book.tags.each do |tag|
+                a.badge.badge-pill.badge-secondary(href="/") #{tag.name}
+              br
               br
               table.table
                 tr
                   td TotalScore
                   td Review
+                  td Star
                   td Bookshelf
                 tr
                   td #{@book.review_point}
-                  td 1
+                  td #{@book.review_length}
+                  td #{@book.star_length}
                   td 1
           #description.tab-pane(role="tabpanel")
             .card-body
-              p price: #{@book.price} yen
-              - if @book.release_date != nil
-                p date: #{@book.release_date}
+              div
+                | Auther: 
+                - @book.authors.each do |author|
+                  a.badge.badge-pill.badge-warning(title="author") #{author.name}
+
+              - if @book.price != nil
+                p price: #{@book.price} yen
+              - if @book.pub_date != nil
+                p date: #{@book.pub_date}
               p.break #{@book.description}
           #links.tab-pane(role="tabpanel")
   br
   .row
-    .col-md-2
-      button.btn.btn-success.btn-block(type="button" v-on:click="redirect_to('/books/#{@book.id}/reviews/new')") write review
-      br
-    .col-md-10
+    .col-md-9
       .card
         .card-header #{@book.title} review
         .card-body
@@ -61,5 +96,28 @@
                     .date #{review.created_at}
               .card-body
                 p.break #{review.body}
-      button.btn.btn-primary.btn-lg.btn-block(type="button") more
-      
+      br
+    .col-md-3
+      - if loged_in?
+        button.btn.btn-success.btn-block(type="button" v-on:click="redirect_to('/books/#{@book.id}/reviews/new')") write review
+        button.btn.btn-success.btn-block(type="button" v-on:click="redirect_to('/books/#{@book.id}/edit')") edit book
+        button.btn.btn-success.btn-block(data-toggle="modal" data-target="#authorModal") Add Author
+        //tag-modal
+        #authorModal.modal.fade(tabindex="-1" role="dialog" aria-labelledby="authorModalLabel" aria-hidden="true")
+          .modal-dialog(role="document")
+            .modal-content
+              .modal-header
+                #authorModalLabel.modal-title New Auther
+                button.close(type="button" data-dismiss="modal" aria-label="Close")
+                  span(area-hidden="true") &times;
+              .modal-body
+                = form_for [@book, @auther], remote: false do |f|
+                  .form-group
+                    = f.text_field :name, placeholder: "Author Name", class: "form-control"
+                  .modal-footer
+                    button.btn.btn-secondary(type="button" data-dismiss="modal") Close
+                    button.btn.btn-primary(type="submit") Save
+
+
+      br
+

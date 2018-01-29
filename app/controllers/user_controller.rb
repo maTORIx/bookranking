@@ -2,6 +2,7 @@ class UserController < ApplicationController
   def show
     @user = User.find(params[:id])
     @reviews = @user.reviews.page(1).per(10)
+    @books = @user.books.page(1).per(10)
   end
   
   def new

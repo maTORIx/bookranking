@@ -5,13 +5,13 @@ class Review < ApplicationRecord
   after_save do
     @book = self.book 
     @book.review_point = self.book.reviews.average(:point).to_f
-    @book.save()
+    @book.save!
   end
 
   after_create do
     @book = self.book
     @book.review_length = @book.reviews.length
-    @book.save()
+    @book.save!
   end
 
   def has_permission?(user)

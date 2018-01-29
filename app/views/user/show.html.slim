@@ -1,5 +1,21 @@
-img(alt="image" src="#{@user.icon.url}")
-h4 #{@user.name}
-p #{@user.email}
+= javascript_pack_tag "default.js"
+.container
+  .row
+    .col-md-2
+      .card
+        img.card-img-top(alt="image" src="#{@user.icon.url}")
+    .col-md-10
+      .card
+        h4.card-header #{@user.name}のBookShelf
+        .card-block.bookshelf
+          - @books.each do |book|
+            .card(v-on:click="redirect_to('/books/#{book.id}')")
+              
+              img.card-img-top(href="#{book_path}" src="#{book.cover_image.url}")
+              .card-block
+                .stars
+                  .stars-box
+                    #star.star(style="width: #{book.simple_point * 21}px;") ★★★★★
+                    #star-back.star-back ★★★★★
+                div #{book.title}
 
-p image_src: #{@user.icon.url}

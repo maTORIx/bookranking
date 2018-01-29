@@ -6,13 +6,16 @@ Rails.application.routes.draw do
   end
 
   resources :user, except:[:index] do
+    resources :book_shelf, except: [:show, :edit, :update, :new]
   end
 
   resources :books, except: [:index]  do
-    resources :reviews, except: [:show] do
-    end
-    resources :stars, only: [:create] do
-    end
+    resources :reviews, except: [:show]
+    resources :stars, only: [:create]
+    resources :tags, only:[:create]
+    resources :authors, only:[:create]
   end
+
+  resources :rankings, only: [:index]
 
 end

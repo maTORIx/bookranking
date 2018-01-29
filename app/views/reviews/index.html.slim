@@ -1,4 +1,54 @@
-- @reviews.each do |review|
-  h4 #{review.user.name}
-  p #{review.body}
+= javascript_pack_tag "books.js"
+#notify
+  div(v-for="notify in notifies")
+    .alert.alert-warning.alert-dismissible.fade.show(role='alert')
+      button.close(type='button' data-dismiss='alert' aria-label='Close')
+          span(aria-hidden='true') &times;
+      = "{{notify}}"
+
+.container
+  .row
+    .col-md-4
+      .card
+        img.card-img-top(alt="image" src="#{@book.cover_image.url}")
+        
+    .col-md-8
+      .card
+        h4.card-header #{@book.title}
+        .card-body
+          .stars
+            .stars-box
+              #star.star(style="width: #{@book.simple_point * 21}px;" v-on:mouseover="judgeStar") ★★★★★
+              #star-rating.star-rating(v-on:mouseleave="stopJudge" v-html="judged_star" v-on:click="sendStar(judged_star)")
+              #star-back.star-back(v-on:mouseover="judgeStar" v-on:click="test()") ★★★★★
+            .star-point #{@book.simple_point}
+          br
+          table.table
+            tr
+              td TotalScore
+              td Review
+              td Bookshelf
+            tr
+              td #{@book.review_point}
+              td #{@book.review_length}
+              td 1
+  br
+  .row
+    .col-md-2
+      button.btn.btn-success.btn-block(type="button" v-on:click="redirect_to('/books/#{@book.id}/reviews/new')") write review
+    .col-md-10
+      .card
+        .card-header #{@book.title} review
+        .card-body
+          - @reviews.each do |review|
+            .card.review
+              .card-header 
+                img.user_icon(src="#{review.user.icon.url}" width="50" style="float: left")
+                .user_profile
+                  .point #{review.point} point
+                  .info
+                    a.book_title(href="/books/#{@book.id}" title="#{@book.title}") #{@book.title}
+                    .date #{review.created_at}
+              .card-body
+                p.break #{review.body}
 = paginate @reviews

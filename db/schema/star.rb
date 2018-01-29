@@ -5,9 +5,6 @@ create_table :stars, force: :cascade do |t|
   t.integer :point, null: false
   t.string :ip_address, null: false
 
-  t.datetime :created_at, null: false
-  t.datetime :updated_at, null: false
-
-  t.index [:ip_address], unique: true
+  t.index [:ip_address, :book_id], unique: true
 end
 

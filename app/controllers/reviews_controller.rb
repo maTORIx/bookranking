@@ -1,4 +1,8 @@
 class ReviewsController < ApplicationController
+  
+  before_action :user_only
+  skip_before_action :user_only, only: [:index]
+  
   def index
     @book = Book.find(params[:book_id])
     @reviews = @book.reviews.page(params[:page]).per(20)
@@ -8,9 +12,10 @@ class ReviewsController < ApplicationController
     @book = Book.find(params[:book_id])
     @review = @book.reviews.find_by(user_id: current_user.id)
     if @review != nil
-      redirect_to action: "edit", id: @review.id
+      return redirect_to action: "edit", id: @review.id
     end
     @review = Review.new
+    
   end
 
   def create
@@ -20,9 +25,11 @@ class ReviewsController < ApplicationController
     
     p review_params
     @review = @book.reviews.create(review_params)
+    redirect_to @book
   end
 
   def edit
+    user_only
     @book = Book.find(params[:book_id])
     @review = Review.find(params[:id])
     p @review.has_permission?(current_user)

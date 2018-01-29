@@ -7,4 +7,7 @@ class User < ApplicationRecord
 
   has_many :reviews
 
+  has_many :book_shelf_relations
+  has_many :books, through: :book_shelf_relations
+
 end

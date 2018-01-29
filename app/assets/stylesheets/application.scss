@@ -13,6 +13,48 @@
  */
 @import "bootstrap";
 
+.bookshelf {
+  display: flex;
+  flex-flow: row wrap;
+
+  .card {
+    width: 200px;
+    flex-grow: 1.5;
+
+    img.card-ima-top {
+      width: 100%;
+    }
+
+    .card-header {
+      
+    }
+  }
+}
+
+.card {
+  .card-header.button-header {
+    text-align: center;
+    .header-text {
+      display: inline;
+      float: left;
+    }
+    .btn {
+      display: inline;
+      float: right;
+    }
+  }
+}
+
+#notify {
+  position: fixed;
+  width: 80%;
+  margin-top: 2%;
+  margin-left: 10%;
+  margin-right: 10%;
+  z-index: 100;
+  //opacity: 0.0;
+}
+
 .break {
   white-space:pre-wrap;
 }
@@ -47,6 +89,7 @@
       white-space: nowrap;
       position: absolute;
       overflow: hidden;
+      color: #e0ff16;
     }
   }
 
