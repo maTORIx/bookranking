@@ -16,11 +16,11 @@ Rails.application.routes.draw do
     resources :authors, only:[:create]
   end
 
-  get '/rankings', to: "rankings#index" do
-    resources :tags, only: [:show, :index]
-    resources :authors, only: [:show, :index]
-    resources :stars, only: [:index]
+  resources :rankings, only: [:index] do
+    collection do
+      resources :tags, only: [:show, :index]
+      resources :authors, only: [:show, :index]
+      resources :stars, only: [:index]
+    end
   end
-  
-
 end
