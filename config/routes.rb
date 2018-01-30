@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :auth, except:[:index, :update, :edit, :show] do
   end
 
-  resources :user, except:[:index] do
+  resources :users, except:[:index] do
     resources :book_shelf, except: [:show, :edit, :update, :new]
   end
 
@@ -16,6 +16,11 @@ Rails.application.routes.draw do
     resources :authors, only:[:create]
   end
 
-  resources :rankings, only: [:index]
+  get '/rankings', to: "rankings#index" do
+    resources :tags, only: [:show, :index]
+    resources :authors, only: [:show, :index]
+    resources :stars, only: [:index]
+  end
+  
 
 end

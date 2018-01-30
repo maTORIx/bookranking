@@ -1,4 +1,4 @@
-class UserController < ApplicationController
+class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @reviews = @user.reviews.page(1).per(10)
