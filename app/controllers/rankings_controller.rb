@@ -15,15 +15,30 @@ class RankingsController < ApplicationController
       @books = Book.order(order_param => order).page(params[:page]).per(20)
     else
       books_id = []
-      books_id = params[:tags] == nil ? books_id : Tag.find_books_id(params[:tags].split("+"))
 
-      books_id_from_author = params[:authors] == nil ? books_id : Author.find_books_id(params[:authors].split("+"))
-      books_id = books_id == [] ? books_id_from_author : books_id & books_id_from_author
+      if params[:tags] != nil
+        books_id = Tag.find_books_id(params[:tags].split("+"))
+      end
 
-      books_id_from_category = params[:category] == nil ? books_id : Category.find_books_id(params[:category].split("+"))
-      books_id = books_id == [] ? books_id_from_category : books_id & books_id_from_category
+      if params[:authors] != nil
+        ids = Author.find_books_id(params[:authors].split("+"))
+        if books_id == []
+          books_id = ids
+        else
+          books_id = books_id & ids
+        end
+      end
 
-      @books = Book.where(id: books_id.uniq).order(order_param => order)
+      if params[:category]
+        ids = Category.find_books_id(params[:category].split("+"))
+        if books_id == []
+          books_id = ids
+        else 
+          books_id = books_id & ids
+        end
+      end
+
+      @books = Book.where(id: books_id.uniq).order(order_param => order).page(params[:page]).per(20)
     end
   end
 end

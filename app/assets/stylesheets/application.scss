@@ -15,17 +15,19 @@
 
 .ranking {
   .book.card {
+
+    display: flexbox;
+    flex-flow: row wrap;
+
     .book-img {
       width: 20%;
-      height: auto;
+      height: 20%;
       float: left;
       display: inline;
-      margin: 0;
     }
     .card {
       float: left;
       width: 80%;
-      margin: 0;
     }
   }
 }

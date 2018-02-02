@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   end
 
   def user_only
-    if !loged_in?
+    if !logged_in?
       redirect_to "/signin"
     end
   end
