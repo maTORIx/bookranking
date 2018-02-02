@@ -1,29 +1,32 @@
 .container
   .row
     .col-md-10
-      - @books.each do |book|
-        .card-header.button-header
-          h4.header-text #{book.title}
-          = button_to "棚に入れる", user_book_shelf_index_path(current_user, book_shelf_relation:{book_id: book.id}), method: :post, class: "btn btn-primary", title: "Insert in bookshelf"
-        .card-block
-          .stars
-            .stars-box
-              #star.star(style="width: #{book.simple_point * 21}px;") ★★★★★
-              #star-back.star-back ★★★★★
-            .star-point #{book.simple_point}
-          br
-          br
-          table.table
-            tr
-              td 総合得点
-              td レビュー
-              td Star
-              td 本棚
-            tr
-              td #{book.review_point}
-              td #{book.review_length}
-              td #{book.star_length}
-              td #{book.shelfed_length}
-          
+      .ranking
+        - @books.each do |book|
+          .card.book
+            img.book-img(alt="img" src="#{book.cover_image.url}")
+            .card
+              .card-header.button-header
+                h4.header-text #{book.title}
+                = button_to "棚に入れる", user_book_shelf_index_path(current_user, book_shelf_relation:{book_id: book.id}), method: :post, class: "btn btn-primary", title: "Insert in bookshelf"
+              .card-body
+                .stars
+                  .stars-box
+                    #star.star(style="width: #{book.simple_point * 21}px;") ★★★★★
+                    #star-back.star-back ★★★★★
+                  .star-point #{book.simple_point}
+                br
+                br
+                table.table
+                  tr
+                    td 総合得点
+                    td レビュー
+                    td Star
+                    td 本棚
+                  tr
+                    td #{book.review_point}
+                    td #{book.review_length}
+                    td #{book.star_length}
+                    td #{book.shelfed_length}
 
     .col-md-2

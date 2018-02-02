@@ -13,6 +13,23 @@
  */
 @import "bootstrap";
 
+.ranking {
+  .book.card {
+    .book-img {
+      width: 20%;
+      height: auto;
+      float: left;
+      display: inline;
+      margin: 0;
+    }
+    .card {
+      float: left;
+      width: 80%;
+      margin: 0;
+    }
+  }
+}
+
 .bookshelf {
   display: flex;
   flex-flow: row wrap;

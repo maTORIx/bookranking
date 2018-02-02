@@ -1,22 +1,20 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  helper_method :current_user, :loged_in?
-
-  def log_info(err)
-    logger.info(err.message)
-  end
+  helper_method :current_user, :logged_in?
 
   def current_user
-    return User.find_by(id: session[:user_id])
+    return @current_user if instance_variable_defined?(:@current_user)
+
+    @current_user = User.find_by(id: session[:user_id])
   end
 
-  def loged_in?
-    session[:user_id] != nil
+  def logged_in?
+    current_user.present?
   end
 
   def user_only
     if !loged_in?
-      render file: "#{Rails.root}/public/404.html", layout: false, status: 404
+      redirect_to "/signin"
     end
   end
 end
