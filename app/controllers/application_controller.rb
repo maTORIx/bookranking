@@ -2,6 +2,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   helper_method :current_user, :loged_in?
 
+  def log_info(err)
+    logger.info(err.message)
+  end
+
   def current_user
     return User.find_by(id: session[:user_id])
   end

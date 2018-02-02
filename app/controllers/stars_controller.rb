@@ -8,15 +8,12 @@ class StarsController < ApplicationController
       point: params[:point],
       ip_address: request.remote_ip
     }
-    begin
-      @book.stars.create(star_params)
-    rescue => e
-      p e
-      return render file: "#{Rails.root}/public/404.html", layout: false, status: 404
+    if !@book.stars.create!(star_params)
+      head :forbidden
     end
     cookies[:star_posted] = {
       value: "true",
-      path: "/book/#{@book.id}",
+      path: "/books/#{@book.id}",
     }
   end
 end

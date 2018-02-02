@@ -16,14 +16,14 @@
         .card-header.button-header
           h4.header-text #{@book.title}
           - if loged_in?
-            = button_to "BookShelf", user_book_shelf_index_path(current_user, book_shelf_relation:{book_id: @book.id}), method: :post, class: "btn btn-primary", title: "Insert in bookshelf"
+            = button_to "棚に入れる", user_book_shelf_index_path(current_user, book_shelf_relation:{book_id: @book.id}), method: :post, class: "btn btn-primary", title: "Insert in bookshelf"
         ul.nav.nav-tabs(role="tablist")
           li.nav-item
-            a.nav-link.active(data-toggle="tab" href="#status" role="tab") status
+            a.nav-link.active(data-toggle="tab" href="#status" role="tab") ステータス
           li.nav-item
-            a.nav-link(data-toggle="tab" href="#description" role="tab") description
+            a.nav-link(data-toggle="tab" href="#description" role="tab") 説明
           li.nav-item
-            a.nav-link(data-toggle="tab" href="#links" role="tab") links
+            a.nav-link(data-toggle="tab" href="#links" role="tab") 関連リンク
         .tab-content
           #status.tab-pane.active(role="tabpanel")
             .card-body
@@ -57,24 +57,24 @@
               br
               table.table
                 tr
-                  td TotalScore
-                  td Review
+                  td 総合得点
+                  td レビュー
                   td Star
-                  td Bookshelf
+                  td 本棚
                 tr
                   td #{@book.review_point}
                   td #{@book.review_length}
                   td #{@book.star_length}
-                  td 1
+                  td #{@book.shelfed_length}
           #description.tab-pane(role="tabpanel")
             .card-body
               div
-                | Auther: 
+                | 製作者: 
                 - @book.authors.each do |author|
                   a.badge.badge-pill.badge-warning(title="author") #{author.name}
 
               - if @book.price != nil
-                p price: #{@book.price} yen
+                p 価格: #{@book.price} 円
               - if @book.pub_date != nil
                 p date: #{@book.pub_date}
               p.break #{@book.description}
@@ -83,7 +83,7 @@
   .row
     .col-md-9
       .card
-        .card-header #{@book.title} review
+        .card-header #{@book.title} レビュー
         .card-body
           - @reviews.each do |review|
             .card.review
@@ -99,15 +99,15 @@
       br
     .col-md-3
       - if loged_in?
-        button.btn.btn-success.btn-block(type="button" v-on:click="redirect_to('/books/#{@book.id}/reviews/new')") write review
-        button.btn.btn-success.btn-block(type="button" v-on:click="redirect_to('/books/#{@book.id}/edit')") edit book
+        button.btn.btn-success.btn-block(type="button" v-on:click="redirect_to('/books/#{@book.id}/reviews/new')") レビューを書く
+        button.btn.btn-success.btn-block(type="button" v-on:click="redirect_to('/books/#{@book.id}/edit')") 本を編集
         button.btn.btn-success.btn-block(data-toggle="modal" data-target="#authorModal") Add Author
         //tag-modal
         #authorModal.modal.fade(tabindex="-1" role="dialog" aria-labelledby="authorModalLabel" aria-hidden="true")
           .modal-dialog(role="document")
             .modal-content
               .modal-header
-                #authorModalLabel.modal-title New Auther
+                #authorModalLabel.modal-title New Author
                 button.close(type="button" data-dismiss="modal" aria-label="Close")
                   span(area-hidden="true") &times;
               .modal-body

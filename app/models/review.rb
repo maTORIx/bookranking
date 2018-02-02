@@ -2,6 +2,8 @@ class Review < ApplicationRecord
   belongs_to :user
   belongs_to :book
 
+  validates :user, uniqueness: {scope: :book}
+
   after_save do
     @book = self.book 
     @book.review_point = self.book.reviews.average(:point).to_f

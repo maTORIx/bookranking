@@ -3,10 +3,18 @@ class Tag < ApplicationRecord
   has_many :books, through: :tag_relations
 
   def self.find_books_id(tags)
-    TagRelation.where(tag_id: Tag.where(name: tags).pluck(:id)).pluck(:book_id).uniq 
+    result = []
+    ids = TagRelation.where(tag_id: Tag.where(name: tags).pluck(:id)).pluck(:book_id) 
+    ids.each do |id|
+      if ids.count(id) == tags.length
+        result.push(id)
+      end
+    end
+    p ids
+    return result.uniq
   end
 
   def self.find_books(tags)
-    Book.where(id: Tag.find_book_id(tags))
+    Book.where(id: Tag.find_books_id(tags))
   end
 end
