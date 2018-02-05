@@ -1,6 +1,7 @@
 class RankingsController < ApplicationController
   def index
 
+
     #order
     order_param = :review_point
     if ["simple_point", "review_length", "star_length", "shelfed_length", "pub_date"].include?(params[:order_param])
@@ -24,23 +25,24 @@ class RankingsController < ApplicationController
       }
 
       if params[:tags] != nil
-        result[:book_ids] = Tag.find_books_id(params[:tags].split("+"))
+        result[:book_ids] = Tag.find_books_id(params[:tags].split(" "))
         result[:empty] = false
       end
 
       if params[:authors] != nil
-        ids = Author.find_books_id(params[:authors].split("+"))
-        result[:book_ids] = result[:empty] ? ids : books_ids & ids
+        ids = Author.find_books_id(params[:authors].split(" "))
+        result[:book_ids] = result[:empty] ? ids : result[:book_ids] & ids
         result[:empty] = false
       end
 
-      if params[:category]
-        ids = Category.find_books_id(params[:category].split("+"))
-        result[:book_ids] = result[:empty] ? ids : books_ids & ids
+      if params[:categories]
+        ids = Category.find_books_id(params[:categories].split(" "))
+        result[:book_ids] = result[:empty] ? ids : result[:book_ids] & ids
         result[:empty] = false
       end
 
       @books = Book.where(id: result[:book_ids]).order(order_param => order).page(params[:page]).per(20).includes(:tags, :authors, :categories)
+      
     end
   end
 end

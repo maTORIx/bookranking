@@ -1,33 +1,30 @@
 .card.book
-  img.book-img(alt="img" src="#{book.cover_image.url}")
   .card
     .card-header.button-header
       h3 #{(@books.current_page - 1) * @books.limit_value + book_counter + 1}位
       h4.header-text
         a(href="/books/#{book.id}") #{book.title}
-      = button_to "棚に入れる", user_book_shelf_index_path(current_user, book_shelf_relation:{book_id: book.id}), method: :post, class: "btn btn-primary", title: "Insert in bookshelf"
-    .card-body
-      .stars
-        .stars-box
-          #star.star(style="width: #{book.simple_point * 21}px;") ★★★★★
-          #star-back.star-back ★★★★★
-        .star-point #{book.simple_point}
-      - book.authors.each do |author|
-        a.badge.badge-pill.badge-warning(href="/rankings/?authors=#{author.name}") #{author.name}
-      br
-      - book.tags.each do |tag|
-        a.badge.badge-pill.badge-secondary(href="/rankings/?tags=#{tag.name}") #{tag.name}
+      = button_to "棚に入れる", user_book_shelf_index_path(current_user, book_shelf_relation:{book_id: book.id}), method: :post, class: "btn btn-primary", title: "本棚に本を追加"
 
-      br
-      br
-      table.table
-        tr
-          td 総合得点
-          td レビュー
-          td Star
-          td 本棚
-        tr
-          td #{book.review_point}
-          td #{book.review_length}
-          td #{book.star_length}
-          td #{book.shelfed_length}
+    .card-body
+      .book-img
+        img(alt="img" src="#{book.cover_image.url}")
+      .book-status
+        .stars
+          .stars-box
+            #star.star(style="width: #{book.simple_point * 21}px;") ★★★★★
+            #star-back.star-back ★★★★★
+          .star-point #{book.simple_point}
+        - book.authors.each do |author|
+          a.badge.badge-pill.badge-warning(href="/rankings/?authors=#{author.name}") #{author.name}
+        br
+        - book.tags.each do |tag|
+          a.badge.badge-pill.badge-secondary(href="/rankings/?tags=#{tag.name}") #{tag.name}
+        br
+
+        - if book.description.length < 100
+          p.break #{book.description}
+        - else
+          p.break #{book.description.slice(0, 100)}...
+        br
+        p 総合得点: #{book.review_point}, レビュー: #{book.review_length}件, スター: #{book.star_length}件, 本棚: #{book.shelfed_length}件

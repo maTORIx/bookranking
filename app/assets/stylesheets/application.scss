@@ -13,22 +13,36 @@
  */
 @import "bootstrap";
 
+.ranking-option-box {
+  .current-option {
+    a.badge {
+    }
+  }
+
+  .options {
+
+  }
+}
+
+
+
 .ranking {
-  .book.card {
-
-    display: flexbox;
+  .card-body {
+    display: flex;
+    justify-content: space-between;
     flex-flow: row wrap;
-
     .book-img {
-      width: 20%;
-      height: 20%;
-      float: left;
-      display: inline;
-    }
-    .card {
-      float: left;
-      width: 80%;
-    }
+      flex-grow: 0;
+      img {
+        width: 200px;
+        height: auto;
+        float: left;
+
+      }
+          }
+    .book-status {
+      flex: 2 2 200px;
+    }  
   }
 }
 

@@ -1,8 +1,23 @@
 .container
   .row
+    .col-md-12
+      .ranking-option-box
+        .current-option
+          |検索条件: 
+          - params[:categories].to_s.split(" ").each do |category|
+            a.badge.badge-pill.badge-primary(href="/rankings/?categories=#{category}" title="カテゴリ") #{category}
+      
+          - params[:authors].to_s.split(" ").each do |author|
+            a.badge.badge-pill.badge-warning(href="/rankings/?authors=#{author}" title="著者") #{author}
+
+          - params[:tags].to_s.split(" ").each do |tag|
+            a.badge.badge-pill.badge-secondary(href="/rankings/?tags=#{tag}" title="タグ") #{tag}
+        .options
+  .row
     .col-md-10
+      
+
       .ranking
-        //- @books.each_with_index do |book, i|
         = render partial: "book",  collection: @books
     .col-md-2
 
