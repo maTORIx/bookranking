@@ -10,6 +10,7 @@ class Author < ApplicationRecord
         result.push(id)
       end
     end
+
     result.uniq
   end
 

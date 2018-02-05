@@ -85,18 +85,7 @@
       .card
         .card-header #{@book.title} レビュー
         .card-body
-          - @reviews.each do |review|
-            .card.review
-              .card-header 
-                img.user_icon(src="#{review.user.icon.url}" width="50" style="float: left")
-                .user_profile
-                  .point #{review.point} point
-                  .info
-                    a.book_title(href="/books/#{@book.id}" title="#{@book.title}") #{@book.title}
-                    .date #{review.created_at}
-              .card-body
-                p.break #{review.body}
-      br
+          = render partial: "review", collection: @reviews
     .col-md-3
       - if logged_in?
         button.btn.btn-success.btn-block(type="button" v-on:click="redirect_to('/books/#{@book.id}/reviews/new')") レビューを書く

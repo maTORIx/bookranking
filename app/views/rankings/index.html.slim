@@ -2,38 +2,8 @@
   .row
     .col-md-10
       .ranking
-        - @books.includes(:tags).each_with_index do |book, i|
-          .card.book
-            img.book-img(alt="img" src="#{book.cover_image.url}")
-            .card
-              .card-header.button-header
-                h3 #{(@books.current_page - 1) * @books.limit_value + i + 1}位
-                h4.header-text
-                  a(href="/books/#{book.id}") #{book.title}
-                = button_to "棚に入れる", user_book_shelf_index_path(current_user, book_shelf_relation:{book_id: book.id}), method: :post, class: "btn btn-primary", title: "Insert in bookshelf"
-              .card-body
-                .stars
-                  .stars-box
-                    #star.star(style="width: #{book.simple_point * 21}px;") ★★★★★
-                    #star-back.star-back ★★★★★
-                  .star-point #{book.simple_point}
-                - book.tags.each do |tag|
-                  a.badge.badge-pill.badge-secondary(href="/") #{tag.name}
- 
-                br
-                br
-                table.table
-                  tr
-                    td 総合得点
-                    td レビュー
-                    td Star
-                    td 本棚
-                  tr
-                    td #{book.review_point}
-                    td #{book.review_length}
-                    td #{book.star_length}
-                    td #{book.shelfed_length}
-
+        //- @books.each_with_index do |book, i|
+        = render partial: "book",  collection: @books
     .col-md-2
 
   = paginate @books

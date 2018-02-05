@@ -1,0 +1,11 @@
+.card.review
+  .card-header 
+    img.user_icon(src="#{review.user.icon.url}" width="50" style="float: left")
+    .user_profile
+      .point #{review.point} point
+      .info
+        a.book_title(href="/books/#{@book.id}" title="#{@book.title}") #{@book.title}
+        .date #{review.created_at}
+  .card-body
+    p.break #{review.body}
+

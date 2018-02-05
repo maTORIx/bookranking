@@ -10,8 +10,8 @@ class Tag < ApplicationRecord
         result.push(id)
       end
     end
-    p ids
-    return result.uniq
+
+    result.uniq
   end
 
   def self.find_books(tags)

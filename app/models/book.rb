@@ -10,7 +10,7 @@ class Book < ApplicationRecord
   has_many :tags, through: :tag_relations
 
   has_many :category_relations
-  has_many :category, through: :category_relations
+  has_many :categories, through: :category_relations
   
   has_many :stars
 
