@@ -1,0 +1,6 @@
+.card
+  h6.card-header 最近追加されたタグ
+  .card-body
+    - Tag.order(id: "desc").page(1).per(40).each do |tag|     
+      a.badge.badge-pill.badge-warning(href="/rankings/?authors=#{tag.name}") #{tag.name}
+

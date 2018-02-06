@@ -12,6 +12,10 @@
 
           - params[:tags].to_s.split(" ").each do |tag|
             a.badge.badge-pill.badge-secondary(href="/rankings/?tags=#{tag}" title="タグ") #{tag}
+
+          - if params[:tags] == nil && params[:authors] == nil && params[:categories] == nil
+            |総合
+          | ランキング
         .options
   .row
     .col-md-10
@@ -20,5 +24,6 @@
       .ranking
         = render partial: "book",  collection: @books
     .col-md-2
+      = render file: "/app/views/tags/_recent_tags.html.slim"
 
   = paginate @books
