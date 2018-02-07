@@ -6,11 +6,11 @@ Rails.application.routes.draw do
   get "/signup", to: "users#new"
 
   resources :auth, except:[:index, :update, :edit, :show] do
+    post "/confirm", to: "users#confirm_email", on: :collection
   end
 
   resources :users, except:[:index] do
     resources :book_shelf, except: [:show, :edit, :update, :new]
-    post "", to: "users#confirm"
     get "/confirm/:confirm_hash", to: "users#confirm"
   end
 

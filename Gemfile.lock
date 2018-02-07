@@ -63,6 +63,10 @@ GEM
     concurrent-ruby (1.0.5)
     crass (1.0.3)
     diffy (3.2.0)
+    dotenv (2.2.1)
+    dotenv-rails (2.2.1)
+      dotenv (= 2.2.1)
+      railties (>= 3.2, < 5.2)
     email_validator (1.6.0)
       activemodel
     erubi (1.7.0)
@@ -221,6 +225,7 @@ DEPENDENCIES
   bootstrap
   byebug
   carrierwave (~> 1.0)
+  dotenv-rails
   email_validator
   jbuilder (~> 2.5)
   jquery-rails

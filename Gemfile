@@ -34,6 +34,7 @@ gem 'rails-i18n'
 gem 'ridgepoler-rails'
 gem 'slim-rails'
 gem 'carrierwave', '~> 1.0'
+gem 'dotenv-rails'
 
 gem 'bootstrap'
 gem 'jquery-rails'

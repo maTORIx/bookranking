@@ -21,5 +21,21 @@
          = f.password_field :password, placeholder: "password", class: "form-control"
          br
          = f.submit 'Login', class: "btn btn-primary btn-block"
-           
-  
+      a(href="#" data-toggle="modal" data-target="#confirmModal") 認証メールを再送信する
+
+#confirmModal.modal.fade(tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true")
+  .modal-dialog(role="document")
+    .modal-content
+      .modal-header
+        #confirmModalLabel.modal-title Send Confirm Mail
+        button.close(type="button" data-dismiss="modal" aria-label="Close")
+          span(area-hidden="true") &times;
+      .modal-body
+        = form_tag "/auth/confirm", method: :post
+          .form-group
+            label(for="email") email
+            input.form-control(placeholder="to@example.com" name="email")
+          .modal-footer
+            button.btn.btn-secondary(type="button" data-dismiss="modal") Close
+            button.btn.btn-primary(type="submit") 再送信
+

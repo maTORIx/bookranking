@@ -12,7 +12,6 @@ class UsersController < ApplicationController
   def create
     user_params = params.require(:user).permit(:name, :email, :password, :password_confirmation)
     @user = User.create(user_params)
-    #UserMailer.email_confirm(@user).deliver
     redirect_to new_auth_url
   end
   
@@ -39,9 +38,9 @@ class UsersController < ApplicationController
   end
 
   def confirm_email
-    @user = User.find(params[:email])
-    UserMailer.email_confirm(@user).deliver
-    redirect_to new_auth_url
+    @user = User.find_by(email: params[:email])
+    @user.email_confirm if !@user.confirmed
+    redirect_to new_auth_url(notifies: ["すでにメール認証を行っています"])
   end
 
 end

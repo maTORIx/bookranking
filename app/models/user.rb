@@ -1,7 +1,8 @@
 class User < ApplicationRecord
   has_secure_password
   before_create :generate_confirm_hash
-  
+  after_create :email_confirm
+
   validates :email, presence: true, uniqueness: true, email: true
   validates :name, uniqueness: true
 
@@ -14,6 +15,13 @@ class User < ApplicationRecord
 
   def generate_confirm_hash
     self.confirm_hash = SecureRandom.base64(20)
+  end
+
+  def email_confirm
+    p "-------------------"
+    p ENV["GMAIL_ADDRESS"]
+    p self
+    UserMailer.email_confirm(self).deliver
   end
 
 end
