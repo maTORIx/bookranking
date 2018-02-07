@@ -1,6 +1,7 @@
 .card
   h6.card-header 最近検出されたタグ
   .card-body
-    - TagRelation.order(id: "desc").page(1).per(40).includes(:book, :tag).select("book.cover_image book.id tag.name").uniq.each do |tag_relation|     
+    - TagRelation.order(id: "desc").page(1).per(40).includes(:book, :tag).select("book.cover_image book.id tag.name").uniq.each do |tag_relation|
+      
       
 

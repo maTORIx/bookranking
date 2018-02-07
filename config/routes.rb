@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   resources :users, except:[:index] do
     resources :book_shelf, except: [:show, :edit, :update, :new]
+    post "", to: "users#confirm"
+    get "/confirm/:confirm_hash", to: "users#confirm"
   end
 
   resources :books, except: [:index]  do

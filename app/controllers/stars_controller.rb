@@ -1,7 +1,7 @@
 class StarsController < ApplicationController
   def create
     if cookies[:star_posted] == "true"
-      return render file: "#{Rails.root}/public/404.html", layout: false, status: 404
+      render file: "#{Rails.root}/public/404.html", layout: false, status: 404 and return
     end
     @book = Book.find(params[:book_id])
     star_params = {

@@ -18,12 +18,12 @@
           | ランキング
         .options
   .row
-    .col-md-10
+    .col-md-9
       
 
       .ranking
         = render partial: "book",  collection: @books
-    .col-md-2
+    .col-md-3
       = render file: "/app/views/tags/_recent_tags.html.slim"
 
   = paginate @books

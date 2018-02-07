@@ -7,6 +7,8 @@ html
     = stylesheet_link_tag    'application', media: 'all'
     = javascript_include_tag 'application'
     = javascript_pack_tag "application.js"
+    meta(name="viewport" content="width=device-width,initial-scale=1")
+
   body
     #layout
       nav.navbar.navbar-expand-lg.navbar-light.bg-light
@@ -17,11 +19,26 @@ html
 
         div#header.collapse.navbar-collapse
           div.navbar-nav
+            a.nav-item.nav-link.active(href="/rankings") 総合ランキング
+            a.nav-item.nav-link.active(href="/rankings/tags") タグランキング
+            a.nav-item.nav-link.active(href="/rankings/category") カテゴリランキング
+            a.nav-item.nav-link.active(href="/rankings/authors") 著者ランキング
+            
+            a.nav-item.nav-link(data-toggle="modal" data-target="#inquireModal") お問い合わせ
+            #inquireModal.modal.fade(tabindex="-1" role="dialog" aria-labelledby="inquireModalLabel" aria-hidden="true")
+              .modal-dialog(role="document")
+                .modal-content
+                  .modal-header
+                    h5.modal-title お問い合わせ・不具合
+                    button.close(data-dismiss="modal" aria-label="Close" type="button")
+                      span(aria-hidden="true") &times;
+                  .modal-body
+                    test
+                    
             - if logged_in?
               a.nav-item.nav-link(href='/auth/destroy' data-method="delete") Logout
             - else
               a.nav-item.nav-link(href='/auth/new') Login
-              a.nav-item.nav-link(href='/user/new') Signin
+              a.nav-item.nav-link(href='/users/new') Signin
       div#app
-        
         = yield

@@ -5,6 +5,8 @@ create_table :users, force: :cascade do |t|
   t.string :email, null: false
   t.string :password_digest, null: false
   t.string :icon, null: true
+  t.boolean :confirmed, default: false, null: false
+  t.string :confirm_hash, default: "123456", null: false
 
   t.datetime :created_at, null: false
   t.datetime :updated_at, null: false
