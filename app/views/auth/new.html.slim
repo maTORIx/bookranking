@@ -22,6 +22,8 @@
          br
          = f.submit 'Login', class: "btn btn-primary btn-block"
       a(href="#" data-toggle="modal" data-target="#confirmModal") 認証メールを再送信する
+      br
+      a(href="/signup") ユーザーを作成
 
 #confirmModal.modal.fade(tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true")
   .modal-dialog(role="document")

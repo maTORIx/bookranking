@@ -12,6 +12,5 @@ create_table :users, force: :cascade do |t|
   t.datetime :updated_at, null: false
 
   t.index [:email], unique: true
-  t.index [:name], unique: true
 end
 

@@ -3,7 +3,7 @@ h1 BookRanking
 p このメールアドレスを用いてアカウントが作成されました。
 p メール認証のため下記のリンクをクリックしてください。
 
-a(href="localhost:3000/users/#{@user.id}/confirm/#{@user.confirm_hash}") メール認証
+a(href="localhost:3000/users/#{@user.id}/confirm/#{CGI.escape(@user.confirm_hash)}") メール認証
 
 br
 br

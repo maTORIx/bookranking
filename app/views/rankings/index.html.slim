@@ -15,6 +15,9 @@
 
           - if params[:tags] == nil && params[:authors] == nil && params[:categories] == nil
             |総合
+          | #{Book.column_names[@order_param]}
+          - if @order == "asc"
+            |逆順
           | ランキング
         .options
   .row

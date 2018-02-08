@@ -3,19 +3,19 @@ class RankingsController < ApplicationController
 
 
     #order
-    order_param = :review_point
+    @order_param = :review_point
     if ["simple_point", "review_length", "star_length", "shelfed_length", "pub_date"].include?(params[:order_param])
-      order_param = params[:order_param].to_sym
+      @order_param = params[:order_param].to_sym
     end 
 
-    order = "desc"
+    @order = "desc"
     if ["asc"].include?(params[:order])
-      order = params[:order]
+      @order = params[:order]
     end
 
     #find_books
     if params[:tags] == nil && params[:authors] == nil && params[:category] == nil
-      @books = Book.order(order_param => order).page(params[:page]).per(20).includes(:tags, :authors, :categories)
+      @books = Book.order(@order_param => @order).page(params[:page]).per(20).includes(:tags, :authors, :categories)
 
     else
 
@@ -41,7 +41,7 @@ class RankingsController < ApplicationController
         result[:empty] = false
       end
 
-      @books = Book.where(id: result[:book_ids]).order(order_param => order).page(params[:page]).per(20).includes(:tags, :authors, :categories)
+      @books = Book.where(id: result[:book_ids]).order(@order_param => @order).page(params[:page]).per(20).includes(:tags, :authors, :categories)
       
     end
   end

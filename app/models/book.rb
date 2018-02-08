@@ -21,4 +21,24 @@ class Book < ApplicationRecord
     self.author_relations.find_or_create_by!(author_id: @author.id)
   end
 
+  def self.classifiers
+    {
+      simple_point: "点",
+      review_point: "点",
+      review_length: "件",
+      star_length: "件",
+      shelfed_length: "件"
+    }
+  end
+
+  def self.column_names
+    {
+      simple_point: "Star評価",
+      review_point: "レビュー評価",
+      review_length: "レビュー件数",
+      star_length: "Star件数",
+      shelfed_length: "本棚に入れた数"
+    }
+  end
+
 end

@@ -3,7 +3,7 @@ p BookRanking
 p このメールを用いてアカウントが作成されました。
 p メール認証のため、下記のリンクにアクセスしてください。
 
-a http://0.0.0.0/users/#{@user.id}/confirm/#{@user.confirm_hash}
+a http://0.0.0.0/users/#{@user.id}/confirm/#{CGI.escape(@user.confirm_hash)}
 
 
 

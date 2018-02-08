@@ -4,7 +4,6 @@ class User < ApplicationRecord
   after_create :email_confirm
 
   validates :email, presence: true, uniqueness: true, email: true
-  validates :name, uniqueness: true
 
   mount_uploader :icon, UserIconUploader
 
@@ -18,10 +17,9 @@ class User < ApplicationRecord
   end
 
   def email_confirm
-    p "-------------------"
+    p "--------------------------------------------------------------"
     p ENV["GMAIL_ADDRESS"]
-    p self
-    UserMailer.email_confirm(self).deliver
+    UserMailer.email_confirm(self).deliver_later
   end
 
 end

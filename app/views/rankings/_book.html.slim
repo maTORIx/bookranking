@@ -10,6 +10,7 @@
       .book-img
         img(alt="img" src="#{book.cover_image.url}")
       .book-status
+        h3 #{book[@order_param]} #{Book.classifiers[@order_param]}
         .stars
           .stars-box
             #star.star(style="width: #{book.simple_point * 21}px;") ★★★★★

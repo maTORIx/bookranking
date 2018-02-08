@@ -11,8 +11,13 @@ class UsersController < ApplicationController
 
   def create
     user_params = params.require(:user).permit(:name, :email, :password, :password_confirmation)
-    @user = User.create(user_params)
-    redirect_to new_auth_url
+    if User.create(user_params)
+      @notifies = []
+      @notifies.push("エラーが発生しました")
+      @notifies.push("同じメールアドレスは登録できません") if User.exists?(email: user_params[:email])
+      redirect_to new_user_url(notifies: @notifies) and return
+    end
+    redirect_to new_auth_url(notifies: ["ユーザーを作成しました。認証メールを確認してください"])
   end
   
   def edit
@@ -31,16 +36,20 @@ class UsersController < ApplicationController
     if params[:confirm_hash] == @user.confirm_hash
       @user.confirmed = true
       @user.save!
-      redirect_to new_auth_url and return
+      redirect_to new_auth_url(notifies: ["メールの認証を完了しました"])
     else
-      render file: "#{Rails.root}/public/500.html", layout: false, status: 500 and return
+      render redirect_to new_auth_url(notifies: ["認証のエラーが起きました。認証メールの再送信を推奨します"])
     end
   end
 
   def confirm_email
     @user = User.find_by(email: params[:email])
-    @user.email_confirm if !@user.confirmed
-    redirect_to new_auth_url(notifies: ["すでにメール認証を行っています"])
+    if !@user.confirmed
+      @user.email_confirm 
+      redirect_to new_auth_url(notifies: ["認証メールを再送信しました"])
+    else
+      redirect_to new_auth_url(notifies: ["すでにメール認証を行っています"])
+    end
   end
 
 end
