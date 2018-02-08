@@ -41,4 +41,4 @@
         .card-header #{@book.title} review
         .card-body
           = render partial: "review", collection: @reviews
-= paginate @reviews
+  = paginate @reviews, theme: "twitter-bootstrap-4"

@@ -1,9 +1,8 @@
 .container
   .row
     .col-md-12
-      .ranking-option-box
-        .current-option
-          |検索条件: 
+      .ranking-option-box.card
+        h3.current-option.card-header
           - params[:categories].to_s.split(" ").each do |category|
             a.badge.badge-pill.badge-primary(href="/rankings/?categories=#{category}" title="カテゴリ") #{category}
       
@@ -15,11 +14,12 @@
 
           - if params[:tags] == nil && params[:authors] == nil && params[:categories] == nil
             |総合
-          | #{Book.column_names[@order_param]}
+          | #{Book.column_japanese_names[@order_param]}
           - if @order == "asc"
             |逆順
           | ランキング
-        .options
+        .options.card-body
+          
   .row
     .col-md-9
       
@@ -29,4 +29,4 @@
     .col-md-3
       = render file: "/app/views/tags/_recent_tags.html.slim"
 
-  = paginate @books
+  = paginate @books, theme: "twitter-bootstrap-4"

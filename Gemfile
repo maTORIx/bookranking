@@ -30,6 +30,7 @@ gem 'email_validator'
 # gem 'capistrano-rails', group: :development
 
 gem 'kaminari'
+gem 'bootstrap4-kaminari-views'
 gem 'rails-i18n'
 gem 'ridgepoler-rails'
 gem 'slim-rails'

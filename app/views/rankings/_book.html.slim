@@ -1,10 +1,9 @@
 .card.book
   .card
     .card-header.button-header
-      h3 #{(@books.current_page - 1) * @books.limit_value + book_counter + 1}位
-      h4.header-text
+      h5
+        div #{(@books.current_page - 1) * @books.limit_value + book_counter + 1}位
         a(href="/books/#{book.id}") #{book.title}
-      = button_to "棚に入れる", user_book_shelf_index_path(current_user, book_shelf_relation:{book_id: book.id}), method: :post, class: "btn btn-primary", title: "本棚に本を追加"
 
     .card-body
       .book-img
@@ -28,4 +27,4 @@
         - else
           p.break #{book.description.slice(0, 100)}...
         br
-        p 総合得点: #{book.review_point}, レビュー: #{book.review_length}件, スター: #{book.star_length}件, 本棚: #{book.shelfed_length}件
+        p 総合得点: #{book.review_point}, レビュー: #{book.review_length}件, 本棚: #{book.shelfed_length}件
