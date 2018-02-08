@@ -31,7 +31,7 @@ class Book < ApplicationRecord
     }
   end
 
-  def self.column_names
+  def self.column_japanese_names
     {
       simple_point: "Star評価",
       review_point: "レビュー評価",

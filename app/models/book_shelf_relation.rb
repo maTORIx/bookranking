@@ -4,9 +4,11 @@ class BookShelfRelation < ApplicationRecord
 
   validates :book, uniqueness: { scope: :user }
 
-  after_create do
+  after_create :realize_length
+
+  def realize_length
     @book = self.book
     @book.shelfed_length = @book.book_shelf_relations.length
-    @book.save!
+    @book.save
   end
 end
