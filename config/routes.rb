@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
   resources :books, except: [:index]  do
     resources :reviews, except: [:show]
-    resources :stars, only: [:create]
+    resources :easy_reviews, only: [:create]
     resources :tags, only:[:create]
     resources :authors, only:[:create]
   end

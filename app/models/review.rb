@@ -4,15 +4,15 @@ class Review < ApplicationRecord
 
   validates :user, uniqueness: {scope: :book}
 
-  after_save do
-    @book = self.book 
-    @book.review_point = self.book.reviews.average(:point).to_f
-    @book.save!
-  end
+  after_create :update_book
 
-  after_create do
+  def update_book
     @book = self.book
     @book.review_length = @book.reviews.length
+    @book.review_point = @book.reviews.average(:point).to_f
+    @book.all_review_length = @book.easy_review_length + @book.review_length
+    @book.all_review_point = @book.generate_all_review_point
+     
     @book.save!
   end
 

@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function(){
         this.judged_star = ""
       },
       sendStar: function(stars){
-        fetch(`${document.URL}/stars`, {
+        fetch(`${document.URL}/easy_reviews`, {
           method: "POST",
           credentials: "same-origin",
           headers: {
@@ -36,10 +36,10 @@ document.addEventListener("DOMContentLoaded", function(){
           if (resp.status >= 200 && resp.status <= 300) {
             this.notifies.push("Sended")
             return
-          } else if(resp.status == 404) {
-            throw "already sended"
+          } else if(resp.status == 403) {
+            throw "すでに投票しています"
           } else {
-            throw "Internal Server Error"
+            throw "エラーが発生しました"
           }
         }).catch((e) => {
           console.error(e)

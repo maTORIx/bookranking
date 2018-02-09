@@ -8,12 +8,17 @@ create_table :books, force: :cascade do |t|
   t.date :pub_date, null: false, default: "2018-01-01"
   t.string :cover_image, null: true
 
-  t.float :simple_point, null: true, default: 0
-  t.float :review_point, null: true, default: 0
+  t.float :score, null: false, default: 0
+  t.float :simple_point, null: false, default: 0
+  t.float :easy_review_point, null: false, default: 0
+  t.float :review_point, null: false, default: 0
+  t.float :all_review_point, null: false, default: 0
 
   t.integer :review_length
   t.integer :star_length
+  t.integer :easy_review_length
   t.integer :shelfed_length
+  t.integer :all_review_length
 
   t.datetime :created_at, null: false
   t.datetime :updated_at, null: false

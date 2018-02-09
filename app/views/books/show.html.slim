@@ -12,74 +12,8 @@
         img.card-img-top(alt="image" src="#{@book.cover_image.url}")
         
     .col-md-8
-      .card
-        .card-header.button-header
-          h4.header-text #{@book.title}
-          - if logged_in?
-            = button_to "棚に入れる", user_book_shelf_index_path(current_user, book_shelf_relation:{book_id: @book.id}), method: :post, class: "btn btn-primary", title: "Insert in bookshelf"
-        ul.nav.nav-tabs(role="tablist")
-          li.nav-item
-            a.nav-link.active(data-toggle="tab" href="#status" role="tab") ステータス
-          li.nav-item
-            a.nav-link(data-toggle="tab" href="#description" role="tab") 説明
-          li.nav-item
-            a.nav-link(data-toggle="tab" href="#links" role="tab") 関連リンク
-        .tab-content
-          #status.tab-pane.active(role="tabpanel")
-            .card-body
-              .stars
-                .stars-box
-                  #star.star(style="width: #{@book.simple_point * 21}px;" v-on:mouseover="judgeStar") ★★★★★
-                  #star-rating.star-rating(v-on:mouseleave="stopJudge" v-html="judged_star" v-on:click="sendStar(judged_star)")
-                  #star-back.star-back(v-on:mouseover="judgeStar" v-on:click="test()") ★★★★★
-                .star-point #{@book.simple_point}
-                
-              button.badge.badge-pill.badge-info(data-toggle="modal" data-target="#tagModal") New Tag
-              //tag-modal
-              #tagModal.modal.fade(tabindex="-1" role="dialog" aria-labelledby="tagModalLabel" aria-hidden="true")
-                .modal-dialog(role="document")
-                  .modal-content
-                    .modal-header
-                      #tagModalLabel.modal-title New Tag
-                      button.close(type="button" data-dismiss="modal" aria-label="Close")
-                        span(area-hidden="true") &times;
-                    .modal-body
-                      = form_for [@book, @tag], remote: false do |f|
-                        .form-group
-                          = f.text_field :name, placeholder: "Tag Name", class: "form-control"
-                        .modal-footer
-                          button.btn.btn-secondary(type="button" data-dismiss="modal") Close
-                          button.btn.btn-primary(type="submit") Save
-
-              - @book.tags.each do |tag|
-                a.badge.badge-pill.badge-secondary(href="/") #{tag.name}
-              br
-              br
-              table.table
-                tr
-                  td 総合得点
-                  td レビュー
-                  td Star
-                  td 本棚
-                tr
-                  td #{@book.review_point}
-                  td #{@book.review_length}
-                  td #{@book.star_length}
-                  td #{@book.shelfed_length}
-          #description.tab-pane(role="tabpanel")
-            .card-body
-              div
-                | 製作者: 
-                - @book.authors.each do |author|
-                  a.badge.badge-pill.badge-warning(title="author") #{author.name}
-
-              - if @book.price != nil
-                p 価格: #{@book.price} 円
-              - if @book.pub_date != nil
-                p date: #{@book.pub_date}
-              p.break #{@book.description}
-          #links.tab-pane(role="tabpanel")
-  br
+      = render @book
+      br
   .row
     .col-md-9
       .card
