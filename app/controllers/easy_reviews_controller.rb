@@ -8,7 +8,7 @@ class EasyReviewsController < ApplicationController
       point: params[:point],
       ip_address: request.remote_ip
     }
-    if !@book.easy_reviews.create!(review_params)
+    if !@book.easy_reviews.create(review_params)
       head :forbidden
     end
     cookies[:easy_review_posted] = {

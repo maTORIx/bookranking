@@ -19,7 +19,7 @@
       .card
         .card-header #{@book.title} レビュー
         .card-body
-          = render partial: "review", collection: @reviews
+          = render partial: "reviews/review", collection: @reviews
     .col-md-3
       - if logged_in?
         button.btn.btn-success.btn-block(type="button" v-on:click="redirect_to('/books/#{@book.id}/reviews/new')") レビューを書く
@@ -40,7 +40,5 @@
                   .modal-footer
                     button.btn.btn-secondary(type="button" data-dismiss="modal") Close
                     button.btn.btn-primary(type="submit") Save
-
-
       br
 

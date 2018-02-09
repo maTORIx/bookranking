@@ -5,7 +5,7 @@ class BooksController < ApplicationController
 
   def show
     @book = Book.find(params[:id])
-    @reviews = @book.reviews.page(1).per(10)
+    @reviews = @book.reviews.page(1).per(10).includes(:user)
     @tag = Tag.new
     @auther = Author.new
     @book_shelf_relation = BookShelfRelation.new

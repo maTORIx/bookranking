@@ -17,8 +17,8 @@
           .stars-box
             #star.star(style="width: #{@book.all_review_point * 21}px;" v-on:mouseover="judgeStar") ★★★★★
             #star-rating.star-rating(v-on:mouseleave="stopJudge" v-html="judged_star" v-on:click="sendStar(judged_star)")
-            #star-back.star-back(v-on:mouseover="judgeStar" v-on:click="test()") ★★★★★
-          .star-point #{@book.simple_point}
+            #star-back.star-back(v-on:mouseover="judgeStar") ★★★★★
+          .star-point #{@book.all_review_point}
           
         button.badge.badge-pill.badge-info(data-toggle="modal" data-target="#tagModal") New Tag
         //tag-modal
