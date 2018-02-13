@@ -3,6 +3,8 @@
     h4.header-text #{@book.title}
     - if logged_in?
       = button_to "棚に入れる", user_book_shelf_index_path(current_user, book_shelf_relation:{book_id: @book.id}), method: :post, class: "btn btn-primary", title: "Insert in bookshelf"
+    - else
+      button.btn.btn-primary(type="button" v-on:click="redirect_to('/signin')") 棚に入れる
   ul.nav.nav-tabs(role="tablist")
     li.nav-item
       a.nav-link.active(data-toggle="tab" href="#status" role="tab") ステータス

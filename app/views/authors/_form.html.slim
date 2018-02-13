@@ -1,0 +1,6 @@
+= form_for [@book, @auther], remote: false do |f|
+  .form-group
+    = f.text_field :name, placeholder: "Author Name", class: "form-control"
+  .modal-footer
+    button.btn.btn-secondary(type="button" data-dismiss="modal") Close
+    button.btn.btn-primary(type="submit") Save

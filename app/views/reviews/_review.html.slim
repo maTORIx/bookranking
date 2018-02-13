@@ -2,7 +2,11 @@
   .card-header 
     img.user_icon(src="#{review.user.icon.url}" width="50" style="float: left")
     .user_profile
-      .point #{review.point} point
+      .stars
+        .stars-box
+          #star.star(style="width: #{@book.all_review_point * 21}px;") ★★★★★
+          #star-back.star-back ★★★★★
+
       .info
         a.book_title(href="/books/#{@book.id}" title="#{@book.title}") #{@book.title}
         .date #{review.created_at}

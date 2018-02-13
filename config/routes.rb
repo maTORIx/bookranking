@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   get "/signin", to: "auth#new"
+  get "/login" => redirect("/signin")
   get "/signup", to: "users#new"
 
   resources :auth, except:[:index, :update, :edit, :show] do
@@ -14,8 +15,10 @@ Rails.application.routes.draw do
     get "/confirm/:confirm_hash", to: "users#confirm"
   end
 
+  resources :reviews, only: [:show, :edit, :update]
+
   resources :books, except: [:index]  do
-    resources :reviews, except: [:show]
+    resources :reviews, only: [:index, :create, :new]
     resources :easy_reviews, only: [:create]
     resources :tags, only:[:create]
     resources :authors, only:[:create]

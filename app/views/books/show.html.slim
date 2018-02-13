@@ -5,6 +5,14 @@
       button.close(type='button' data-dismiss='alert' aria-label='Close')
           span(aria-hidden='true') &times;
       = "{{notify}}"
+
+  - if params[:notifies] != nil
+    - params[:notifies].each do |notify|
+      .alert.alert-warning.alert-dismissible.fade.show(role='alert')
+        button.close(type='button' data-dismiss='alert' aria-label='Close')
+          span(aria-hidden='true') &times;
+        div #{notify}
+
 .container
   .row
     .col-md-4
@@ -19,26 +27,10 @@
       .card
         .card-header #{@book.title} レビュー
         .card-body
-          = render partial: "reviews/review", collection: @reviews
+          = render @reviews
     .col-md-3
       - if logged_in?
         button.btn.btn-success.btn-block(type="button" v-on:click="redirect_to('/books/#{@book.id}/reviews/new')") レビューを書く
         button.btn.btn-success.btn-block(type="button" v-on:click="redirect_to('/books/#{@book.id}/edit')") 本を編集
-        button.btn.btn-success.btn-block(data-toggle="modal" data-target="#authorModal") Add Author
-        //tag-modal
-        #authorModal.modal.fade(tabindex="-1" role="dialog" aria-labelledby="authorModalLabel" aria-hidden="true")
-          .modal-dialog(role="document")
-            .modal-content
-              .modal-header
-                #authorModalLabel.modal-title New Author
-                button.close(type="button" data-dismiss="modal" aria-label="Close")
-                  span(area-hidden="true") &times;
-              .modal-body
-                = form_for [@book, @auther], remote: false do |f|
-                  .form-group
-                    = f.text_field :name, placeholder: "Author Name", class: "form-control"
-                  .modal-footer
-                    button.btn.btn-secondary(type="button" data-dismiss="modal") Close
-                    button.btn.btn-primary(type="submit") Save
       br
 

@@ -1,7 +1,8 @@
 class EasyReview < ApplicationRecord
-  belongs_to :books
+  validates :point, numericality: { only_integer: true, greater_than: 0, less_than: 6 }
+  validates :ip_address, uniqueness: {scope: :book_id}
 
-  validates :ip_address, uniqueness: true
+  belongs_to :book
 
   after_create :update_book
 
