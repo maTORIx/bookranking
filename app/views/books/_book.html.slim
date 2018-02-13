@@ -1,10 +1,12 @@
 .card
   .card-header.button-header
     h4.header-text #{@book.title}
-    - if logged_in?
-      = button_to "棚に入れる", user_book_shelf_index_path(current_user, book_shelf_relation:{book_id: @book.id}), method: :post, class: "btn btn-primary", title: "Insert in bookshelf"
-    - else
+    - if !logged_in?
       button.btn.btn-primary(type="button" v-on:click="redirect_to('/signin')") 棚に入れる
+    - elsif current_user.book_shelf_relations.exists?(book_id: @book.id)
+      = button_to "棚から出す", user_book_shelf_path(user_id: current_user, book_id: @book.id), method: :delete, class: "btn btn-danger", title: "Destroy from bookshelf"
+    - else
+      = button_to "棚に入れる", user_book_shelf_index_path(current_user, book_shelf_relation:{book_id: @book.id}), method: :post, class: "btn btn-primary", title: "Insert in bookshelf"
   ul.nav.nav-tabs(role="tablist")
     li.nav-item
       a.nav-link.active(data-toggle="tab" href="#status" role="tab") ステータス
@@ -46,12 +48,12 @@
           tr
             td 総合得点
             td レビュー
-            td Star
+            td レビュー件数 
             td 本棚
           tr
-            td #{@book.review_point}
-            td #{@book.review_length}
-            td #{@book.star_length}
+            td #{@book.score}
+            td #{@book.all_review_point}
+            td #{@book.all_review_length}
             td #{@book.shelfed_length}
     #description.tab-pane(role="tabpanel")
       .card-body

@@ -1,14 +1,15 @@
 .card.review
   .card-header 
-    img.user_icon(src="#{review.user.icon.url}" width="50" style="float: left")
+    img.user_icon(src="#{review.user.icon.url}" width="40" style="float: left")
     .user_profile
       .stars
         .stars-box
           #star.star(style="width: #{@book.all_review_point * 21}px;") ★★★★★
           #star-back.star-back ★★★★★
+        .star-text #{review.title}
 
       .info
         a.book_title(href="/books/#{@book.id}" title="#{@book.title}") #{@book.title}
-        .date #{review.created_at}
+        .date #{review.created_at.strftime("%Y年%m月%d日")}
   .card-body
     p.break #{review.body}

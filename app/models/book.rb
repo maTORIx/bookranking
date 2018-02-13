@@ -42,11 +42,26 @@ class Book < ApplicationRecord
   end
 
   def generate_all_review_point
-    (self.easy_review_length * self.review_point + (self.review_length * 2) * self.review_point) / (self.easy_review_length + (self.review_length * 2))
+    (self.easy_review_length * self.easy_review_point + (self.review_length * 2) * self.review_point) / (self.easy_review_length + (self.review_length * 2))
   end
 
   def generate_score
     self.all_review_point * 20
+  end
+
+  def update_info
+    @book = self
+    @book.easy_review_length = @book.easy_reviews.length
+    @book.easy_review_point = @book.easy_reviews.average(:point).floor(3).to_f
+
+    @book.review_length = @book.reviews.length
+    @book.review_point = @book.reviews.average(:point).floor(3).to_f
+
+    @book.all_review_length = @book.easy_review_length + @book.review_length
+    @book.all_review_point = @book.generate_all_review_point.floor(3).to_f
+    @book.score = @book.generate_score
+
+    @book.save!
   end
 
 end

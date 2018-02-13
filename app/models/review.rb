@@ -7,6 +7,7 @@ class Review < ApplicationRecord
   belongs_to :book
 
   after_create :update_book
+  after_update :update_book
 
   def update_book
     @book = self.book

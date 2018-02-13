@@ -133,6 +133,12 @@
     margin-left: 10px;
     float: right;
   }
+  
+  .star-text {
+    margin-left: 10px;
+    float: right;
+    font-size: 18px;
+  }
 }
 
 .card.review {
@@ -152,6 +158,7 @@
       }
       .info {
         display: flex;
+        font-size: 12px;
       }
     }
   }

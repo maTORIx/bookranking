@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   end
 
   resources :users, except:[:index] do
-    resources :book_shelf, except: [:show, :edit, :update, :new]
+    resources :book_shelf, only: [:show, :create, :destroy], param: :book_id
     get "/confirm/:confirm_hash", to: "users#confirm"
   end
 
