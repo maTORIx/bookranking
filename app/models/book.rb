@@ -18,11 +18,6 @@ class Book < ApplicationRecord
 
   has_many :book_edit_requests
 
-  def add_author(name)
-    @author = Author.find_or_create_by!(name: name)
-    self.author_relations.find_or_create_by!(author_id: @author.id)
-  end
-
   def self.classifiers
     {
       all_review_point: "点",
