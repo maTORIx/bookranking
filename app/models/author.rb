@@ -1,4 +1,5 @@
 class Author < ApplicationRecord
+  validates :name, uniqueness: true
   has_many :author_relations
   has_many :books, through: :author_relations
 
@@ -16,5 +17,13 @@ class Author < ApplicationRecord
 
   def self.find_books(authors)
     Book.where(id: Author.find_books_id(authors))
+  end
+
+  def create_request(book)
+    book.book_edit_requests.create(target_column: "author", action: "create", content: self.name)
+  end
+
+  def detroy_request(book)
+    book.book_edit_requests.create(target_column: "author", action: "destroy", content: self.name)
   end
 end

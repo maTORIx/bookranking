@@ -16,6 +16,8 @@ class Book < ApplicationRecord
 
   has_many :book_shelf_relations
 
+  has_many :book_edit_requests
+
   def add_author(name)
     @author = Author.find_or_create_by!(name: name)
     self.author_relations.find_or_create_by!(author_id: @author.id)
@@ -62,6 +64,14 @@ class Book < ApplicationRecord
     @book.score = @book.generate_score
 
     @book.save!
+  end
+
+  def edit_request(params)
+    for param in params
+      if self[param[0]] != param[1]
+        self.book_edit_requests.create(target_column: param[0].to_s, action: "update", content: param[1])
+      end
+    end
   end
 
 end
