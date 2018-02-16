@@ -26,9 +26,9 @@ Rails.application.routes.draw do
 
   resources :rankings, only: [:index] do
     collection do
-      resources :tags, only: [:show, :index]
-      resources :authors, only: [:show, :index]
-      resources :stars, only: [:index]
+      resources :tags, only: [:index, :destroy]
+      resources :authors, only: [:index, :destroy]
+      resources :stars, only: [:index, :destroy]
     end
   end
 end

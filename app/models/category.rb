@@ -17,11 +17,11 @@ class Category < ApplicationRecord
     Book.where(id: self.find_books_id(categories))
   end
 
-  def create_request(book)
+  def create_request(book, name)
     book.book_edit_requests.create(target_column: "category", action: "create", content: self.name)
   end
 
-  def detroy_request(book)
+  def detroy_request(book, name)
     book.book_edit_requests.create(target_column: "category", action: "destroy", content: self.name)
   end
 end

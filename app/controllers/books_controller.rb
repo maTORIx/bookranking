@@ -7,7 +7,6 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
     @reviews = @book.reviews.page(1).per(10).includes(:user)
     @tag = Tag.new
-    @auther = Author.new
     @book_shelf_relation = BookShelfRelation.new
   end
 
@@ -18,7 +17,7 @@ class BooksController < ApplicationController
 
   def create
     user_only
-    book_params = params.require(:book).permit(:title, :description, :price, :releace_date, :cover_image)
+    book_params = params.require(:book).permit(:title, :description, :price, :pub_date, :cover_image)
     @book = Book.create(book_params)
     redirect_to @book
   end
@@ -26,13 +25,15 @@ class BooksController < ApplicationController
   def edit
     user_only
     @book = Book.find(params[:id])
+    @author = Author.new
+    @category = Category.new
   end
 
   def update
     user_only
     @book = Book.find(params[:id])
-    book_params = params.require(:book).permit(:title, :description, :price, :releace_date, :cover_image)
-    @book.update(book_params)
+    book_params = params.require(:book).permit(:title, :description, :price, :pub_date, :cover_image)
+    @book.edit_request(book_params)
     redirect_to @book
   end
 

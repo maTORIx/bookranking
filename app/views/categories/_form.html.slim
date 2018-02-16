@@ -1,10 +1,10 @@
-a(href="#" data-toggle="modal" data-target="#authorModal") 著者を設定する 
+a(href="#" data-toggle="modal" data-target="#categoryModal") カテゴリを編集する 
 
-#authorModal.modal.fade(tabindex="-1" role="dialog" aria-labelledby="authorModalLabel" aria-hidden="true")
+#categoryModal.modal.fade(tabindex="-1" role="dialog" aria-labelledby="categoryModalLabel" aria-hidden="true")
   .modal-dialog(role="document")
     .modal-content
       .modal-header
-        #authorModalLabel.modal-title Send Confirm Mail
+        #categoryModalLabel.modal-title Send Confirm Mail
         button.close(type="button" data-dismiss="modal" aria-label="Close")
           span(area-hidden="true") &times;
       .modal-body
@@ -13,9 +13,9 @@ a(href="#" data-toggle="modal" data-target="#authorModal") 著者を設定する
         br
         hr
         h5 追加
-        = form_for [@book, @book.authors.new], remote: false do |f|
+        = form_for [@book, @book.categories.new], remote: false do |f|
           .form-group
-            = f.text_field :name, placeholder: "Author Name", class: "form-control"
+            = f.text_field :name, placeholder: "Category Name", class: "form-control"
           .modal-footer
             button.btn.btn-secondary(type="button" data-dismiss="modal") Close
             button.btn.btn-primary(type="submit") Create

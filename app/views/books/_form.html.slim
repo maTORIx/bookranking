@@ -1,23 +1,20 @@
-.container
-  .row
-    .col-md-6.offset-md-3
-      .card
-        .card-header #{action_name} Book
-        = form_for @book, remote: false do |f|
-          .form-group
-            = f.label :title
-            = f.text_field :title, placeholder: "John Doe travel", class: "form-control"
-          .form-group
-            = f.label :description
-            = f.text_area :description, placeholder: "description", class: "form-control"
-          .form-group
-            = f.label :price
-            = f.number_field :price, placeholder: "yen", class: "form-control"
-          .form-group
-            = f.label :pub_date
-            = f.date_field :pub_date, class: "form-control"
-          .form-group
-            = f.label :cover_image
-            = f.file_field :cover_image 
-          button.btn.btn-primary.btn-block(type="submit")
-            span.glyphicon.glyphicon-send Send
+.card
+  .card-header #{action_name} Book
+  = form_for @book, remote: false do |f|
+    .form-group
+      = f.label :title
+      = f.text_field :title, placeholder: "John Doe travel", class: "form-control"
+    .form-group
+      = f.label :description
+      = f.text_area :description, placeholder: "description", class: "form-control"
+    .form-group
+      = f.label :price
+      = f.number_field :price, placeholder: "yen", class: "form-control"
+    .form-group
+      = f.label :pub_date
+      = f.date_field :pub_date, class: "form-control"
+    .form-group
+      = f.label :cover_image
+      = f.file_field :cover_image 
+    button.btn.btn-primary.btn-block(type="submit")
+      span.glyphicon.glyphicon-send Send

@@ -62,9 +62,9 @@ class Book < ApplicationRecord
   end
 
   def edit_request(params)
-    for param in params
-      if self[param[0]] != param[1]
-        self.book_edit_requests.create(target_column: param[0].to_s, action: "update", content: param[1])
+    for key in params
+      if Book.column_names.include?(key) && self[key.to_sym].to_s != params[key.to_sym]
+        self.book_edit_requests.create(target_column: key.to_s, action: "update", content: params[key.to_sym])
       end
     end
   end
