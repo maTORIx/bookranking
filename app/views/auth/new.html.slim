@@ -1,10 +1,5 @@
 #notify
-  - if params[:notifies] != nil
-    - params[:notifies].each do |notify|
-      .alert.alert-warning.alert-dismissible.fade.show(role='alert')
-        button.close(type='button' data-dismiss='alert' aria-label='Close')
-          span(aria-hidden='true') &times;
-        div #{notify}
+  = render file: "/app/views/layouts/_notifies.html.slim"
 
 .container
   .row

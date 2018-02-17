@@ -13,6 +13,10 @@
  */
 @import "bootstrap";
 
+body {
+  font-size: 14px;
+}
+
 .ranking-option-box {
   .current-option {
     a.badge {
@@ -137,7 +141,7 @@
   .star-text {
     margin-left: 10px;
     float: right;
-    font-size: 18px;
+    font-size: 14px;
   }
 }
 

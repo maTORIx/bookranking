@@ -20,7 +20,7 @@ class ReviewsController < ApplicationController
       return redirect_to action: "edit", id: @review.id
     end
     @review = Review.new
-    
+    redirect_to @book
   end
 
   def create

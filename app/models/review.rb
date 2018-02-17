@@ -15,7 +15,6 @@ class Review < ApplicationRecord
     @book.review_point = @book.reviews.average(:point).to_f
     @book.all_review_length = @book.easy_review_length + @book.review_length
     @book.all_review_point = @book.generate_all_review_point
-     
     @book.save!
   end
 

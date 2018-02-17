@@ -12,9 +12,9 @@
         h3 #{book[@order_param]} #{Book.classifiers[@order_param]}
         .stars
           .stars-box
-            #star.star(style="width: #{book.simple_point * 21}px;") ★★★★★
+            #star.star(style="width: #{book.all_review_point * 21}px;") ★★★★★
             #star-back.star-back ★★★★★
-          .star-point #{book.simple_point}
+          .star-point #{book.all_review_point}
         - book.authors.each do |author|
           a.badge.badge-pill.badge-warning(href="/rankings/?authors=#{author.name}") #{author.name}
         br
@@ -27,4 +27,4 @@
         - else
           p.break #{book.description.slice(0, 100)}...
         br
-        p 総合得点: #{book.review_point}, レビュー: #{book.review_length}件, 本棚: #{book.shelfed_length}件
+        p 総合得点: #{book.score}, レビュー: #{book.review_length}件, 本棚: #{book.shelfed_length}件

@@ -34,7 +34,7 @@
                 button.close(type="button" data-dismiss="modal" aria-label="Close")
                   span(area-hidden="true") &times;
               .modal-body
-                = form_for [@book, @tag], remote: false do |f|
+                = form_for [@book, @book.tags.new], remote: false do |f|
                   .form-group
                     = f.text_field :name, placeholder: "Tag Name", class: "form-control"
                   .modal-footer

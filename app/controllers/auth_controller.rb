@@ -9,14 +9,14 @@ class AuthController < ApplicationController
     @user = User.find_by(email: login_params[:email])
 
     if @user == nil
-      redirect_to new_auth_url(notifies: ["メールアドレスかパスワードが間違っています"])
+      redirect_to new_auth_url, flash: {notifies: ["メールアドレスかパスワードが間違っています"]}
     elsif !@user.confirmed
-      redirect_to new_auth_url(notifies: ["メール認証がされていないとログインできません"])
+      redirect_to new_auth_url, flash: {notifies: ["メール認証がされていないとログインできません"]}
     elsif @user && @user.authenticate(login_params[:password])
       session[:user_id] = @user.id
       redirect_to root_path
     else
-      redirect_to new_auth_url(notifies: ["メールアドレスかパスワードが間違っています"])
+      redirect_to new_auth_url, flash: {notifies: ["メールアドレスかパスワードが間違っています"]}
     end
   end
 
