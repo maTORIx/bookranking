@@ -3,7 +3,7 @@ class RankingsController < ApplicationController
 
     #order
     @order_param = :score
-    if ["score", "all_review_point", "all_review_length", "review_point", "easy_review_point", "review_length", "star_length", "shelfed_length", "pub_date"].include?(params[:order_param])
+    if ["score", "all_review_point", "all_review_length", "review_point", "review_length", "shelfed_length", "pub_date"].include?(params[:order_param])
       @order_param = params[:order_param].to_sym
     end 
 
