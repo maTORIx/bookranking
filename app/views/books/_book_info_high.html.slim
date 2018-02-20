@@ -1,22 +1,23 @@
-.card.book
-  a.card-header(href="/books/#{book.id}") #{book.title}
-  .card-body.d-flex.justify-content-between
-    .mw-25.w-25
-      img.mw-100.w-100(alt="img" src="#{book.cover_image.url}")
-    .book-status.w-75
-      .stars
-        .stars-box
-          #star.star(style="width: #{book.all_review_point * 21}px;") ★★★★★
-          #star-back.star-back ★★★★★
-        .star-point #{book.all_review_point}
-      - book.authors.each do |author|
-        a.badge.badge-pill.badge-warning(href="/rankings/?authors=#{author.name}") #{author.name}
-      - book.tags.each do |tag|
-        a.badge.badge-pill.badge-secondary(href="/rankings/?tags=#{tag.name}") #{tag.name}
+.d-flex.justify-content-between
+  .mw-25.w-25
+    img.mw-100.w-100(alt="img" src="#{book.cover_image.url}")
+  .card.w-75
+    a.card-header(href="/books/#{book.id}") #{book.title}
+    .card-body
+      .book-status
+        .stars
+          .stars-box
+            #star.star(style="width: #{book.all_review_point * 21}px;") ★★★★★
+            #star-back.star-back ★★★★★
+          .star-point #{book.all_review_point}
+        = render book.authors
+        = render book.tags
+        - book.tags.each do |tag|
+          a.badge.badge-pill.badge-secondary(href="/rankings/?tags=#{tag.name}") #{tag.name}
 
-      - if book.description.length < 100
-        p.break #{book.description}
-      - else
-        p.break #{book.description.slice(0, 100)}...
-      br
-      p 総合得点: #{book.score}, レビュー: #{book.review_length}件, 本棚: #{book.shelfed_length}件
+        - if book.description.length < 100
+          p.break #{book.description}
+        - else
+          p.break #{book.description.slice(0, 100)}...
+        br
+        p 総合得点: #{book.score}, レビュー: #{book.review_length}件, 本棚: #{book.shelfed_length}件

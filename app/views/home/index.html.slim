@@ -1,26 +1,26 @@
-- if logged_in?
-  p Hello World
-  .container
-    .row
-      .col-md-10.offset-md-1
-        #homeControls.carousel.slide.rounded.border.border-dark(data-ride="carousel")
-          .carousel-inner
-            .carousel-item.active
-              img.d-block.w-100(alt="First slide" src="https://matorix.github.io/home.png")
-            .carousel-item
-              img.d-block.w-100(alt="Second slide" src="https://matorix.github.io/home.png")
-            .carousel-item
-              img.d-block.w-100(alt="Third slide" src="https://matorix.github.io/home.png")
-          a.carousel-control-prev(data-slide="prev" href="#homeControls" role="button")
-            span.carousel-control-prev-icon(aria-hidden="true")
-            span.sr-only Previous
-          a.carousel-control-next(data-slide="next" href="#homeControls" role="button")
-            span.carousel-control-next-icon aria-hidden="true" 
-            span.sr-only Next
-        - for book in Tag.find_by(name: "test").books
-          p #{book.title}
-          //p #{book.keys}
-        = render partial: "books/book_info_high", collection: Tag.find_by(name: "test").books, as: :book
-        //= render partial: "books/book_list", collection: Tag.find_by(name: "test").books, as: :books, locals: {title: "test"}
-- else
-  p Goodbye
+.container
+  .row
+    .col-md-12
+      #homeControls.carousel.slide.rounded.border.border-dark(data-ride="carousel")
+        .carousel-inner
+          .carousel-item.active
+            img.d-block.w-100(alt="First slide" src="https://matorix.github.io/home.png")
+          .carousel-item
+            img.d-block.w-100(alt="Second slide" src="https://matorix.github.io/home.png")
+          .carousel-item
+            img.d-block.w-100(alt="Third slide" src="https://matorix.github.io/home.png")
+        a.carousel-control-prev(data-slide="prev" href="#homeControls" role="button")
+          span.carousel-control-prev-icon(aria-hidden="true")
+          span.sr-only.text-dark Previous
+        a.carousel-control-next(data-slide="next" href="#homeControls" role="button")
+          span.carousel-control-next-icon aria-hidden="true" 
+          span.sr-only Next
+  br
+  .row
+    .col-md-8
+      = render file: "app/views/books/_book_list.html.slim", locals: {books: Tag.find_by(name: "test").books, title: "test"}
+    .col-md-4.visible-lg.visible-md
+      = render partial: "books/book_info_low", locals: {books: Book.all.limit(5).order(id: "desc"), title: "最近追加された本"}
+      //= render partial: "books/book_info_high", collection: Tag.find_by(name: "test").books, as: :book
+      
+      //= render partial: "books/book_list", collection: Tag.find_by(name: "test").books, as: :books, locals: {title: "test"}

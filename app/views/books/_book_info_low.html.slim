@@ -1,4 +1,4 @@
 .card
-  .card-body
+  .card-content(style="height: 60px; overflow: hidden;")
     img.mh-100.h-100(alt="img" src="#{book.cover_image.url}")
     a(href="/books/#{book.id}") #{book.title}
