@@ -6,31 +6,25 @@ document.addEventListener("DOMContentLoaded", function(){
   var app = new Vue({
     el: "#app",
     data: {
-      notifies: [],
+      condition_form: {kind: "", name: ""},
+      condition: this.getCondition(),
+      condition_kind: {"著者": "authors", "カテゴリ": "categories", "タグ": "tags"}
     },
     methods: {
-      redirect_to : function(url) {
-        location.href = url
+      addCondition: function() {
+        event.preventDefault()
+        var kind = this.condition_kind[app.condition_form.kind]
+        var name = this.condition_form.name
+        this.condition[kind].push(name)
+        this.condition_form = {kind: "", name: ""}
       },
-      to_book_shelf: function(book_id){
-        fetch(`/books/${book_id}/bookshelf`, {
-          method: "POST",
-          credentials: "same-origin",
-          headers: {
-            "Content-Type": "application/json",
-            "X-CSRF-Token": tools.getCsrfToken()
-          }
-        }).then((resp) => {
-          if(resp.ok) {
-            notifies.push("本棚に追加しました")
-          } else {
-            if(resp.status == 403) {
-              notifies.push("既に本棚に追加しています")
-            } else {
-              notifie.push("エラーが発生しました")
-            }
-          }
-        }
+      getCondition: function() {
+        var condition = {tags: [], authors: [], categories: [], order_param: "score", order: "desc"}
+        location.search.substring(1).split('&').forEach((param) => {
+          var params = param.split("=")
+          condition[params[0]] = params[1].split(",")
+        })
+        return condition
       }
     }
   })

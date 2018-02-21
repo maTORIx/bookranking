@@ -1,3 +1,4 @@
+= javascript_pack_tag "ranking.js"
 .container
   .row
     .col-md-12
@@ -19,13 +20,25 @@
             |逆順
           | ランキング
         .options.card-body
+          h6 条件追加
+          form(v-on:submit="addCondition")
+            .input-group.mb-3
+              .input-group-prepend
+                select#search_kind.custom-select(v-model="condition_form.kind")
+                  option(selected) カテゴリ
+                  option 著者
+                  option タグ
+              input.form-control(placeholder="name" v-model="condition_form.name")
+              .input-group-append
+                button.btn.btn-primary(type="submit") 追加
+
           
   .row
     .col-md-9
       
 
       .ranking
-        = render partial: "book",  collection: @books
+        = render partial: "books/book_info_high", collection: @books, as: :book
     .col-md-3
       = render file: "/app/views/tags/_recent_tags.html.slim"
 
