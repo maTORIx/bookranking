@@ -11,7 +11,7 @@ html
 
   body
     #layout
-      nav.navbar.navbar-expand-lg.navbar-light.bg-light
+      nav.navbar.navbar-expand-lg.navbar-light.bg-light.sticky-top
         a.navbar-brand(href='/') BookRanking
 
         button.navbar-toggler(data-toggle='collapse' data-target='#header' aria-controls='header' aria-expanded='false' aria-label='Toggle navigation')
@@ -42,3 +42,22 @@ html
               a.nav-item.nav-link(href='/users/new') Signin
       div#app
         = yield
+      .help.bg-warning
+        .container
+          .row
+            .col-md-4
+              a(href="#") BookRankingについて
+              br
+              a(href="#") よくある質問
+            .col-md-4
+              a(href="/rankings") 総合ランキング
+              br
+              a(href="/rankings/tags") Bookタグランキング
+              br
+              a(href="/rankings/authors") 著者ランキング
+              br
+              a(href="/rankings/categories") カテゴリランキング
+              br
+            .col-md-4
+              a(data-toggle="modal" data-target="#inquireModal") お問い合わせ
+              br

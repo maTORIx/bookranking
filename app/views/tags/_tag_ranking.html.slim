@@ -1,4 +1,6 @@
-.card
-  .card-title #{tag.name}
-  .card-body
-    = render 
+.card.mt-3
+  a.mt-3.font-weight-bold(href="/rankings?tags=#{tag.name}") 「#{tag.name}」なBookランキング
+  .card-body.over-x-hidden
+    .d-flex.flex-row.justify-content-between(style="height: 150px;")
+      //.bg-secondary.h-85.rounded.text-white.font-weight-bold.vertical-text.text-center(href="/rankings?tags=#{tag.name}") #{tag.name}
+      = render partial: "tags/book", collection: tag.books.all.order(score: "desc").limit(5)

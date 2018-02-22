@@ -17,6 +17,24 @@ body {
   font-size: 14px;
 }
 
+.vertical-text {
+  -webkit-writing-mode: vertical-rl;
+  -ms-writing-mode: tb-rl;
+  writing-mode: vertical-rl;
+}
+
+.over-hidden {
+  overflow: hidden;
+}
+
+.over-y-hidden {
+  overflow-y: hidden;
+}
+
+.over-x-hidden {
+  overflow-x: hidden;
+}
+
 .ranking-option-box {
   .current-option {
     a.badge {

@@ -1,0 +1,3 @@
+h4.text-primary.font-weight-bold.mt-3 Bookタグランキング
+- for tag in Tag.all.order(id: "desc").limit(5)
+  = render partial: "tags/tag_ranking", locals: {tag: tag}
