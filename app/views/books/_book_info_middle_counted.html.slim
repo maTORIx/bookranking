@@ -1,16 +1,18 @@
 .card
-  a.card-header(href="/books/#{book.id}") #{book.title}
+  .card-header
+    h6 #{book_counter + 1}位
+    a(href="/books/#{book.id}") #{book.title}
   .card-body.d-flex.justify-content-between
     .mw-25.w-25
       img.mw-100.w-100(alt="img" src="#{book.cover_image.url}")
     .book-status.w-75
       .d-flex.flex-row
-        .bg-primary.font-weight-bold.text-white.mr-2 総合得点
-        div #{book.score}点
-        .bg-primary.font-weight-bold.text-white.mr-2 レビュー
-        div #{book.review_length}件
-        .bg-primary.font-weight-bold.text-white.mr-2 お気に入り
-        div #{book.shelfed_length}件
+        .bg-primary.font-weight-bold.text-white.mr-2.rounded 総合得点
+        .mr-2 #{book.score}点
+        .bg-warning.font-weight-bold.text-white.mr-2.rounded レビュー
+        .mr-2 #{book.review_length}件
+        .bg-secondary.font-weight-bold.text-white.mr-2.rounded お気に入り
+        .mr-2 #{book.shelfed_length}件
       .stars
         .stars-box
           #star.star(style="width: #{book.all_review_point * 21}px;") ★★★★★

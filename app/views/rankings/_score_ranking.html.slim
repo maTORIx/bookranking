@@ -1,1 +1,1 @@
-= render partial: "books/book_list_counted", locals: {books: Book.order(score: "desc").limit(3).includes(:tags, :authors, :categories), title: "総合ランキング"}
+= render partial: "books/book_list_middle_counted", locals: {books: Book.order(score: "desc").limit(3).includes(:tags, :authors, :categories), title: "総合ランキング"}
