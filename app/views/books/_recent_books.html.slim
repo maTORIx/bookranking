@@ -1,0 +1,1 @@
+= render partial: "books/book_list_low", locals: {books: Book.all.limit(5).order(pub_date: "desc"), title: "最近の本"}

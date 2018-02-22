@@ -30,10 +30,10 @@ class Book < ApplicationRecord
 
   def self.column_japanese_names
     {
-      all_review_point: "総合レビュー評価",
+      score: "総合得点",
+      all_review_point: "総レビュー評価",
       review_point: "レビュー評価",
-      all_review_length: "総合レビュー件数",
-      review_length: "レビュー件数",
+      all_review_length: "総レビュー件数",
       shelfed_length: "本棚に入れた数"
     }
   end
@@ -66,6 +66,50 @@ class Book < ApplicationRecord
       if Book.column_names.include?(key) && self[key.to_sym].to_s != params[key.to_sym]
         self.book_edit_requests.create(target_column: key.to_s, action: "update", content: params[key.to_sym])
       end
+    end
+  end
+
+
+  def self.ranking(params)
+
+    @order_param = :score
+    if ["score", "all_review_point", "all_review_length", "review_point", "review_length", "shelfed_length", "pub_date"].include?(params[:order_param])
+      @order_param = params[:order_param].to_sym
+    end 
+
+    @order = "desc"
+    if ["asc"].include?(params[:order])
+      @order = params[:order]
+    end
+
+    #find_books
+    if params[:tags] == nil && params[:authors] == nil && params[:category] == nil
+      Book.order(@order_param => @order).page(params[:page]).per(20).includes(:tags, :authors, :categories)
+    else
+
+      result = {
+        book_ids: [],
+        empty: true
+      }
+
+      if params[:tags] != nil
+        result[:book_ids] = Tag.find_books_id(params[:tags].split(" "))
+        result[:empty] = false
+      end
+
+      if params[:authors] != nil
+        ids = Author.find_books_id(params[:authors].split(" "))
+        result[:book_ids] = result[:empty] ? ids : result[:book_ids] & ids
+        result[:empty] = false
+      end
+
+      if params[:categories]
+        ids = Category.find_books_id(params[:categories].split(" "))
+        result[:book_ids] = result[:empty] ? ids : result[:book_ids] & ids
+        result[:empty] = false
+      end
+
+      Book.where(id: result[:book_ids]).order(@order_param => @order).page(params[:page]).per(20).includes(:tags, :authors, :categories)
     end
   end
 

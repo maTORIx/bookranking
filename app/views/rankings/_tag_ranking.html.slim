@@ -1,0 +1,1 @@
+= render partial: "books/book_list_low", locals: {books: Tag.find_by(name: {tag}).books.limit(5), title: "#{tag}タグ ランキング"}

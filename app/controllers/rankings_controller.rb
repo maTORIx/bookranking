@@ -12,6 +12,7 @@ class RankingsController < ApplicationController
       @order = params[:order]
     end
 
+
     #find_books
     if params[:tags] == nil && params[:authors] == nil && params[:category] == nil
       @books = Book.order(@order_param => @order).page(params[:page]).per(20).includes(:tags, :authors, :categories)

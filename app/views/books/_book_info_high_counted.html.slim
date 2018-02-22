@@ -1,6 +1,8 @@
 .d-block.d-md-none
   .card
-    a.card-header(href="/books/#{book.id}") #{book.title}
+    .card-header
+      h6 #{book_counter + 1}位
+      a(href="/books/#{book.id}") #{book.title}
     .card-body.d-flex.justify-content-between
       .mw-25.w-25
         img.mw-100.w-100(alt="img" src="#{book.cover_image.url}")
@@ -29,7 +31,9 @@
         .mw-25.w-25
           img.mw-100.w-100(alt="img" src="#{book.cover_image.url}")
         .card.w-75
-          a.card-header(href="/books/#{book.id}") #{book.title}
+          .card-header
+            h6 #{book_counter + 1}位
+            a(href="/books/#{book.id}") #{book.title}
           .card-body
             .book-status
               .stars
