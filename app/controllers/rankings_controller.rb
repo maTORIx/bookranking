@@ -3,7 +3,7 @@ class RankingsController < ApplicationController
 
     #order
     @order_param = :score
-    if ["score", "all_review_point", "all_review_length", "review_point", "review_length", "shelfed_length", "pub_date"].include?(params[:order_param])
+    if ["score", "all_review_point", "all_review_length", "review_point", "review_length", "shelfed_length", "pub_date", "tag_score"].include?(params[:order_param])
       @order_param = params[:order_param].to_sym
     end 
 
@@ -12,11 +12,12 @@ class RankingsController < ApplicationController
       @order = params[:order]
     end
 
-
     #find_books
-    if params[:tags] == nil && params[:authors] == nil && params[:category] == nil
+    if params[:tags] == nil && params[:authors] == nil && params[:categories] == nil
+      if [:tag_score].include? @order_param
+        @order_param = :score
+      end
       @books = Book.order(@order_param => @order).page(params[:page]).per(20).includes(:tags, :authors, :categories)
-
     else
 
       result = {
@@ -41,7 +42,12 @@ class RankingsController < ApplicationController
         result[:empty] = false
       end
 
-      @books = Book.where(id: result[:book_ids]).order(@order_param => @order).page(params[:page]).per(20).includes(:tags, :authors, :categories)
+      if @order_param == :tag_score
+        @books = Book.where(id: result[:book_ids]).order(['field(id, ?)', result[:book_ids]]).page(params[:page]).per(20).includes(:tag_relations, :authors, :categories)
+      else
+        @books = Book.where(id: result[:book_ids]).order(@order_param => @order).page(params[:page]).per(20).includes(:tag_relations, :authors, :categories)
+      end
+
       
     end
   end

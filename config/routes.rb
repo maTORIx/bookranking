@@ -20,15 +20,15 @@ Rails.application.routes.draw do
   resources :books, except: [:index]  do
     resources :reviews, only: [:index, :create, :new]
     resources :easy_reviews, only: [:create]
-    resources :tags, only:[:create]
+    resources :tags, only:[:create, :update], param: :name
     resources :authors, only:[:create]
   end
 
   resources :rankings, only: [:index] do
     collection do
-      resources :tags, only: [:index, :destroy]
-      resources :authors, only: [:index, :destroy]
-      resources :stars, only: [:index, :destroy]
+      resources :tags, only: [:index]
+      resources :authors, only: [:index]
+      resources :stars, only: [:index]
     end
   end
 end

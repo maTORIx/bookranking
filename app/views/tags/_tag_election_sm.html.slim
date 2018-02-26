@@ -1,0 +1,19 @@
+.card
+  table.table.table-bordered
+    thead
+      tr.table-primary
+        th(scope="col") 順位
+        th(scope="col") タグ名
+        th(scope="col") タグポイント
+        th(scope="col") 賛成
+        th(scope="col") 反対
+    tbody
+      tr(scope="row")
+        td #{tag_relation_counter + 1}
+        td #{tag_relation.tag.name}
+        td #{tag_relation.score}
+        td
+          = button_to "Yes", book_tag_path(name: tag_relation.tag.name, book_id: tag_relation.book.id, is_correct: true), method: :put, class: "btn btn-success float-right btn-lg btn-block"
+        td
+          = button_to "No", book_tag_path(name: tag_relation.tag.name, book_id: tag_relation.book.id, is_correct: false), method: :put, class: "btn btn-danger float-right btn-lg btn-block"
+

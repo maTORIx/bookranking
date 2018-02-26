@@ -34,7 +34,7 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
     book_params = params.require(:book).permit(:title, :description, :price, :pub_date, :cover_image)
     @book.edit_request(book_params)
-    redirect_to @book
+    redirect_to @book, flash: {notifies: ["リクエストを送信しました"]}
   end
 
   def destroy

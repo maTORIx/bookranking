@@ -1,0 +1,17 @@
+a(href="/rankings?tags=#{tag_relation.tag.name}") #{tag_relation.tag.name}(スコア: #{tag_relation.score})
+.card
+  .card-content
+    .w-100.text-center
+              
+      = button_to "賛成", book_tag_path(name: tag_relation.tag.name, book_id: tag_relation.book.id, is_correct: true), method: :put, class: "btn btn-success btn-sm float-left"
+      = button_to "反対", book_tag_path(name: tag_relation.tag.name, book_id: tag_relation.book.id, is_correct: false), method: :put, class: "btn btn-danger btn-sm float-right"
+
+      .progress(style="font-size: 0.875rem; line-height: 1.5;")
+        - if tag_relation.alive
+          .progress-bar.bg-primary(role="progressbar" style="width: #{(tag_relation.corrects_length / tag_relation.votes_length.to_f) * 100.0}%;" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100") #{tag_relation.corrects_length}人
+          .progress-bar.bg-danger(role="progressbar" style="width: #{100 - ((tag_relation.corrects_length / tag_relation.votes_length.to_f) * 100.0)}%;" aria-valuenow="65" alia-valuemin="0" alia-valuemax="100") #{tag_relation.votes_length - tag_relation.corrects_length}人
+        - else
+          .progress-bar.bg-primary(role="progressbar" style="width: #{100 - ((tag_relation.votes_length - tag_relation.corrects_length.to_f) / tag_relation.votes_length.to_f) * 100.0}%;" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100") #{tag_relation.corrects_length}人
+          .progress-bar.bg-danger(role="progressbar" style="width: #{((tag_relation.votes_length - tag_relation.corrects_length.to_f) / tag_relation.votes_length.to_f) * 100.0}%;" aria-valuenow="65" alia-valuemin="0" alia-valuemax="100") #{tag_relation.votes_length - tag_relation.corrects_length}人
+
+.mb-3

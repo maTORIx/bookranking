@@ -1,0 +1,9 @@
+.card(v-on:click="redirect_to('/books/#{book.id}')")
+  
+  img.card-img-top(href="#{book_path}" src="#{book.cover_image.url}")
+  .card-block
+    .stars
+      .stars-box
+        #star.star(style="width: #{book.all_review_point * 21}px;") ★★★★★
+        #star-back.star-back ★★★★★
+    a(href="/books/#{book.id}") #{book.title}

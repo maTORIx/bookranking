@@ -18,6 +18,7 @@
                 option(value="desc") ▼
                 option(value="asc") △
             select#order_param.custom-select(v-model="condition.order_param") 
+              option(value="tag_score" v-if="condition.tags.length > 0") タグ成分ポイント
               option(value="score") 総合得点
               option(value="all_review_point") 総レビュー得点
               option(value="review_point") テキストレビュー得点

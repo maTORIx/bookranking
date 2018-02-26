@@ -6,7 +6,7 @@
         .stars-box
           #star.star(style="width: #{review.point * 21}px;") ★★★★★
           #star-back.star-back ★★★★★
-        a.star-text(href="#{review_path}") #{review.title}
+        a.star-text(href="/reviews/#{review.id}") #{review.title}
 
       .info
         a.book_title(href="/books/#{@book.id}" title="#{@book.title}") #{@book.title}

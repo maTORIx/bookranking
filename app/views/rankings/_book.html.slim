@@ -14,7 +14,7 @@
           .star-point #{book.all_review_point}
         = render book.categories
         = render book.authors
-        = render book.tags
+        = render book.tag_relations.alive
 
         - if book.description.length < 100
           p.break #{book.description}
@@ -43,7 +43,7 @@
                 .star-point #{book.all_review_point}
               = render book.categories
               = render book.authors
-              = render book.tags
+              = render book.tag_relations.alive
                 
               - if book.description.length < 100
                 p.break #{book.description}

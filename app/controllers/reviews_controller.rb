@@ -20,17 +20,16 @@ class ReviewsController < ApplicationController
       return redirect_to action: "edit", id: @review.id
     end
     @review = Review.new
-    redirect_to @book
   end
 
   def create
     @book = Book.find(params[:book_id])
     review_params = params.require(:review).permit(:point, :body, :title)
     review_params[:user_id] = current_user.id
-    if @book.reviews.create(review_params)
+    if !@book.reviews.create(review_params)
       redirect_to action: :new and return
     end
-    redirect_to @book and return
+    redirect_to @book, flash: {notifies: ["レビューを作成しました"]} and return
   end
 
   def edit
@@ -46,9 +45,9 @@ class ReviewsController < ApplicationController
     end
     review_params = params.require(:review).permit(:point, :body, :title)
     if !@review.update(review_params)
-      redirect_to action: "edit", notifies: ["エラーが発生しました"] and return
+      redirect_to action: "edit", flash: {notifies: ["エラーが発生しました"]} and return
     end
-    redirect_to @review and return
+    redirect_to @review.book, flash: {notifies: ["レビューを編集しました"]}and return
   end
 
 end

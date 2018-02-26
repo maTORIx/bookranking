@@ -6,48 +6,76 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-def get_books(idx = 1)
-  def to_info(book)
-    pub_date = book["pubDate"]
-
-    if pub_date == nil || pub_date == "nil"
-      pub_date = Date.parse("2000-01-01")
-    else
-      pub_date = Date.parse(pub_date)
-    end
-
-    authors = book["creator"]
-    if !authors.kind_of?(Array)
-      authors = authors == nil ? [] : [authors]
-    end
-    authors = authors.map {|author| author.gsub(/,| ?[ 　,\/].*$/, "")}
-  
-    {title: book["title"][0], description: book["description"].to_s.gsub(/<\/?..?>/,""), author: authors, pub_date: pub_date, publisher: book["publisher"], link: book["link"]}
+def dic2book(book)
+  if book == nil
+    {}
   end
-  
-  category = 1
-  idx = idx 
-  from = "2017-01-01"
-  
-  xml = open("http://iss.ndl.go.jp/api/opensearch?ndc=#{category}&idx=#{idx}&from=#{from}").read
-  json = Hash.from_xml(xml).to_json
-  
-  src = JSON.parse(json)
-  items = src["rss"]["channel"]["item"]
-  items = items.map{|book| to_info book}
-  
-  items
+  {
+    id: book["id"],
+    title: book["volumeInfo"]["title"],
+    pub_date: book["volumeInfo"]["publishedDate"],
+    categories: book["volumeInfo"]["categories"],
+    authors: book["volumeInfo"]["authors"],
+    page_count: book["pageCount"],
+    description: book["volumeInfo"]["description"].to_s,
+    language: book["volumeInfo"]["language"],
+    print_type: book["volumeInfo"]["printType"]
+  }
 end
 
-items = get_books
+def search_books(question, index=1)
+  resp = open("https://www.googleapis.com/books/v1/volumes?q=#{URI.encode(question)}&maxResults=40&startIndex=#{index}&orderBy=newest").read
+  data = JSON.parse(resp)
+  p data["items"].length
+  data["items"].map {|book| dic2book(book)}
+end
+
+items = search_books(('あ'..'を').to_a[rand(26)])
+
+#items = search_books("金持ち父さん", 8)
+
 items.each do |book|
-  begin
-    @book = Book.create(title: book[:title], description: book[:description], price: nil, pub_date: book[:pub_date])
-    book[:author].each do |author|
-      @book.add_author(author)
+  p book
+  if book[:pub_date] == nil
+    book[:pub_date] == nil
+  elsif book[:pub_date].length == 7
+    book[:pub_date] = Date.parse(book[:pub_date] + "-01")
+  elsif book[:pub_date].length == 4
+    book[:pub_date] = Date.parse(book[:pub_date] + "-01-01")
+  else
+    book[:pub_date] = Date.parse(book[:pub_date])
+  end
+
+  @book = Book.new(title: book[:title], description: book[:description], price: nil, pub_date: book[:pub_date])
+  if book[:id] != nil
+    p book[:id]
+    resp = open("https://books.google.com/books/content/images/frontcover/" + book[:id].to_s + "?fife=w1000-h1000")
+    p resp.status
+    if resp != nil
+      @book.cover_image = resp
     end
-  rescue
-    p "error"
+  end
+  if @book.save
+
+    if book[:authors] != nil
+      book[:authors].each do |author|
+        @book.add_author(author)
+      end
+    end
+    if book[:categories] != nil
+      book[:categories].each do |category|
+        @book.add_category(category)
+      end
+    end
+
+    if book[:print_type] != nil
+      types = {
+        BOOK: "本",
+        MAGAZINE: "漫画"
+      }
+      type = types[book[:print_type].to_sym]
+      @book.add_category(type)
+    end
   end
 end
 

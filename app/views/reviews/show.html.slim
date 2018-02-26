@@ -9,7 +9,8 @@
       br
   .row
     .col-md-4
-      img(alt="adsense", src="http://file.kouken.blog.shinobi.jp/result_itamae_img.jpg")
+      = render file: "/app/views/layouts/adsense.html.slim"
       = render file: "/app/views/tags/_recent_tags.html.slim"
     .col-md-8
       = render @review
+      button.mt-3.btn.btn-block.btn-success(onclick="location.href = '/books/#{@book.id}'") Bookに戻る

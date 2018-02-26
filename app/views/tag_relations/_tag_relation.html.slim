@@ -1,5 +1,1 @@
-.card
-  .card-content(style="height: 60px; overflow: hidden;")
-    img.mh-100.h-100(alt="img" src="#{tag_relation.book.cover_image.url}")
-    a(href="/rankings?tags=#{tag_relation.tag.name}") #{tag_relation.tag.name}
-    | タグが検出されました
+a.badge.badge-pill.badge-secondary(href="/rankings?tags=#{tag_relation.tag_name}") #{tag_relation.tag_name}

@@ -6,13 +6,13 @@
   .row
     .col-md-8
       = render file: "app/views/rankings/_score_ranking.html.slim"
-      
       = render file: "app/views/tags/_tag_rankings.html.slim"
+
     .col-md-4.visible-lg.visible-md
       = render file: "app/views/layouts/adsense.html.slim"
-      = render partial: "books/book_list_low", locals: {books: Book.all.limit(5).order(id: "desc"), title: "最近の本"}
-      = render file: "app/views/tags/_recent_tag_relations.html.slim"
       = render file: "app/views/books/_recent_books.html.slim"
+      = render file: "app/views/tags/_recent_tag_relations.html.slim"
+      = render partial: "books/book_list_low", locals: {books: Book.all.limit(5).order(id: "desc"), title: "最近追加された本"}
       = render file: "app/views/books/_recent_update_books.html.slim"
       //= render partial: "books/book_info_high", collection: Tag.find_by(name: "test").books, as: :book
       

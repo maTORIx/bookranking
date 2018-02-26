@@ -1,7 +1,7 @@
 h6.font-weight-bold.text-secondary.mt-3 最近検出されたタグ
 .card
   .card-content
-    = render TagRelation.order(id: "desc").limit(10).includes(:book, :tag)
+    = render partial: "tag_relations/tag_relation_with_book", collection: TagRelation.order(id: "desc").limit(10).includes(:book), as: :tag_relation
       
       
 

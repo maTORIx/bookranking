@@ -6,8 +6,8 @@
           span(aria-hidden='true') &times;
       = "{{notify}}"
 
-  - if params[:notifies] != nil
-    - params[:notifies].each do |notify|
+  - if flash[:notifies] != nil
+    - flash[:notifies].each do |notify|
       .alert.alert-warning.alert-dismissible.fade.show(role='alert')
         button.close(type='button' data-dismiss='alert' aria-label='Close')
           span(aria-hidden='true') &times;
@@ -28,9 +28,13 @@
         .card-header #{@book.title} レビュー
         .card-body
           = render @reviews
+      h4.text-secondary 成分タグ投票
+      .card
+        .card-content
+          = render partial: "tags/tag_election", collection: @book.tag_relations.order(score: "desc"), as: :tag_relation
     .col-md-3
-      - if logged_in?
-        button.btn.btn-success.btn-block(type="button" v-on:click="redirect_to('/books/#{@book.id}/reviews/new')") レビューを書く
-        button.btn.btn-success.btn-block(type="button" v-on:click="redirect_to('/books/#{@book.id}/edit')") 本を編集
+      
+      button.btn.btn-success.btn-block(type="button" v-on:click="redirect_to('/books/#{@book.id}/reviews/new')") レビューを書く
+      button.btn.btn-success.btn-block(type="button" v-on:click="redirect_to('/books/#{@book.id}/edit')") 本を編集
       br
 

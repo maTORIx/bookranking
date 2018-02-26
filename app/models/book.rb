@@ -1,6 +1,8 @@
 class Book < ApplicationRecord
   mount_uploader :cover_image, BookCoverUploader
 
+  validates :title, uniqueness: {scope: [:pub_date, :description]}
+
   has_many :reviews
 
   has_many :author_relations
@@ -8,6 +10,9 @@ class Book < ApplicationRecord
   
   has_many :tag_relations
   has_many :tags, through: :tag_relations
+
+  scope :alive_tag_relations, -> {tag_relations.where(alive: true)}
+  has_many :alive_tags, through: :alive_tag_relations
 
   has_many :category_relations
   has_many :categories, through: :category_relations
@@ -17,6 +22,21 @@ class Book < ApplicationRecord
   has_many :book_shelf_relations
 
   has_many :book_edit_requests
+
+  def add_author(name)
+    author = Author.find_or_create_by!(name: name)
+    self.author_relations.create(author_id: author.id)
+  end
+
+  def add_category(name)
+    category = Category.find_or_create_by!(name: name)
+    self.category_relations.create(category_id: category.id)
+  end
+
+  def tags_score(tags)
+    self.tag_relations.where(tag_name: tags).sum(:score)
+  end
+
 
   def self.classifiers
     {
@@ -49,17 +69,27 @@ class Book < ApplicationRecord
   def update_info
     @book = self
     @book.easy_review_length = @book.easy_reviews.length
-    @book.easy_review_point = @book.easy_reviews.average(:point).floor(3).to_f
+    if @book.easy_review_length > 0
+      @book.easy_review_point = @book.easy_reviews.average(:point).floor(3).to_f
+    end
 
     @book.review_length = @book.reviews.length
-    @book.review_point = @book.reviews.average(:point).floor(3).to_f
+    if @book.review_length > 0
+      @book.review_point = @book.reviews.average(:point).floor(3).to_f
+    end
 
     @book.all_review_length = @book.easy_review_length + @book.review_length
-    @book.all_review_point = @book.generate_all_review_point.floor(3).to_f
-    @book.score = @book.generate_score
+    if @book.all_review_length > 0
+      @book.all_review_point = @book.generate_all_review_point.floor(3).to_f
+      @book.score = @book.generate_score
+    end
 
     @book.save!
   end
+
+  def self.update_info!
+    Book.all.each {|book| book.update_info}
+    end
 
   def edit_request(params)
     for key in params

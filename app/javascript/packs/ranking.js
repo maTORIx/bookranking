@@ -46,7 +46,9 @@ document.addEventListener("DOMContentLoaded", function(){
     location.search.substring(1).split('&').forEach((param) => {
       var params = param.split("=")
       if(["tags", "authors", "categories"].includes(params[0])) {
-        condition[params[0]] = params[1].split("+")
+        condition[params[0]] = params[1].split("+").map((cond) => {
+          return decodeURI(cond)
+        })
       } else {
         condition[params[0]] = params[1]
       }

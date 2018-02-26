@@ -5,7 +5,7 @@
               = render partial: "books/book_info_image", collection: Book.all.order(score: "desc").limit(10), as: :book
           - if !logged_in?
             .carousel-item
-              img.d-block.mx-auto(alt="Second slide" src="/uploads/assets/book-call.png" style="height: 300px;")
+              img.d-block.mx-auto(alt="Second slide" src="/uploads/assets/call.png" style="height: 300px;" onclick="location.href = '/signup'")
         a.carousel-control-prev(data-slide="prev" href="#homeControls" role="button")
           span.carousel-control-prev-icon(aria-hidden="true")
           span.sr-only.text-dark Previous
