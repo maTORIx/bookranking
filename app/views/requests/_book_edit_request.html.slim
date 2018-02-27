@@ -1,0 +1,14 @@
+/.card
+  .card-header #{book_edit_request.book.title}
+  .card-body
+    p #{book_edit_request.target_column}を#{book_edit_request.action}
+
+tr
+  td #{book_edit_request.book.title}
+  td #{book_edit_request.target_column}
+  td #{book_edit_request.action}
+  td #{book_edit_request.content}
+  td
+    = button_to "Accept", "requests/#{book_edit_request.id}", action: "update", method: :put
+  td
+    = button_to "Deny", "requests/#{book_edit_request.id}", action: "destroy", method: :delete

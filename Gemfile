@@ -28,7 +28,7 @@ gem 'email_validator'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
+gem "recaptcha", require: "recaptcha/rails"
 gem 'kaminari'
 gem 'bootstrap4-kaminari-views'
 gem 'rails-i18n'

@@ -2,7 +2,7 @@
   "name": "bookranking",
   "private": true,
   "dependencies": {
-    "@rails/webpacker": "^3.2.1",
+    "@rails/webpacker": "^3.2.2",
     "coffeescript": "1.12.7",
     "vue": "^2.5.13"
   },

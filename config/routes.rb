@@ -31,4 +31,6 @@ Rails.application.routes.draw do
       resources :stars, only: [:index]
     end
   end
+
+  resources :requests, only: [:index, :show, :update, :destroy]
 end

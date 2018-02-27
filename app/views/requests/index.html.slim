@@ -1,0 +1,14 @@
+.container
+  .row
+    .col-md-12
+      table.table
+        thead
+          tr
+            th BookName
+            th TargetColumn
+            th Action
+            th Content
+            th Accept
+            th Deny
+        tbody
+          = render partial: "requests/book_edit_request", collection: @book_edit_requests
