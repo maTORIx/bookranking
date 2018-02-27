@@ -6,4 +6,9 @@ class TagVote < ApplicationRecord
   after_save do
     self.tag_relation.update_info
   end
+
+  after_create do
+    self.user.reliability += 0.1
+    self.user.reliability.save!
+  end
 end

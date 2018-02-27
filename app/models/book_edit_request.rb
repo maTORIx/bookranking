@@ -2,7 +2,13 @@ class BookEditRequest < ApplicationRecord
   validates :book_id, uniqueness: { scope: [:action, :content, :target_column] }
 
   belongs_to :book
-  
+  belongs_to :user
+
+  after_create do
+    self.user.reliability += 2
+    self.user.reliability.save!
+  end
+
   def accept
     @book = self.book
     if self.action == "edit"

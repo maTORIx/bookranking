@@ -9,6 +9,11 @@ class Review < ApplicationRecord
   after_create :update_book
   after_update :update_book
 
+  after_create do
+    self.user.reliability += 0.5
+    self.user.reliability.save!
+  end
+
   def update_book
     @book = self.book
     @book.review_length = @book.reviews.length

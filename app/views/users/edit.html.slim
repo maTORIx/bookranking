@@ -5,6 +5,7 @@
         .card-header Signin
         
         = form_for @user, remote: false do |f|
+          br
           .form-group
             = f.label :icon
             = f.file_field :icon

@@ -5,12 +5,16 @@
     .col-md-4
       .card
         img.card-img-top(alt="image" src="#{@user.icon.url}")
+        .card-body
+          h3 BookRankスコア
+          h5 #{@user.reliability.to_i}
       .mt-3
-      - if current_user.id == @user.id
-        = button_to "プロフィールを編集する", @user, action: "edit", class: "btn btn-block btn-success"
-        .mt-3
-      = render file: "app/views/layouts/adsense.html.slim"
-      = render file: "app/views/tags/_recent_tag_relations.html.slim"
+      div.d-none.d-md-block
+        - if current_user.id == @user.id
+          = button_to "プロフィールを編集する", "/users/#{@user.id}/edit",method: :get, class: "btn btn-block btn-success"
+          .mt-3
+        = render file: "app/views/layouts/adsense.html.slim"
+        = render file: "app/views/tags/_recent_tag_relations.html.slim", class: "d-none"
     .col-md-8
       .card
         h4.card-header #{@user.name}さんのBookShelf
@@ -19,5 +23,7 @@
         .card-block.bookshelf
           
           = render partial: "users/book", collection: @books
+      .d-md-none
+        = render file: "app/views/layouts/adsense.html.slim"
             
 
