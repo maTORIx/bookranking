@@ -2,6 +2,7 @@
   .row
     .col-md-8
       = render partial: "tags/tag_ranking", collection: @tags, as: :tag
+      = paginate @tags, theme: "twitter-bootstrap-4"
     .col-md-4
       = render file: "app/views/layouts/adsense.html.slim"
       = render file: "app/views/tags/_recent_tag_relations.html.slim"

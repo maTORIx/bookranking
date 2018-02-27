@@ -13,7 +13,10 @@
     .col-md-8
       .card
         h4.card-header #{@user.name}さんのBookShelf
+        - if @books.count < 1
+          img.mw-100.w-85.h-85(src="/uploads/assets/bookshelf.png" alt="img")
         .card-block.bookshelf
+          
           = render partial: "users/book", collection: @books
             
 

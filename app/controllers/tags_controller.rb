@@ -1,5 +1,5 @@
 class TagsController < ApplicationController
-  before_action :user_only
+  before_action :user_only, only: ["create", "update"]
 
   def index
     @tags = Tag.page(params[:page]).order(votes_length: "desc").includes(:tag_relations)
