@@ -49,4 +49,6 @@ test:
 #
 production:
   <<: *default
-  database: bookranking_production
+  database: bookranking
+  host: <%= ENV["RAILS_DB_HOST"]%>
+username: <%= ENV["RAILS_DB_USER"]%>

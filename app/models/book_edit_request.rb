@@ -9,9 +9,9 @@ class BookEditRequest < ApplicationRecord
       @book.update!(self.target_column.to_sym => self.content)
     elsif self.action == "create"
 
-      content = @book.send(self.target_column + "s").find_or_create_by!(self.content)
+      content = @book.send(self.target_column + "s").find_or_create_by!(name: self.content)
       symb = (self.target_column + "_id").to_sym
-      @book.send(self.target_column + "_relations").create!(symb => content.id)
+      @book.send(self.target_column + "_relations").find_or_create_by!(symb => content.id)
 
     elsif self.action == "destroy"
 
@@ -19,6 +19,7 @@ class BookEditRequest < ApplicationRecord
       symb = (self.target_column + "_id").to_sym
       @book.send(self.target_column + "_relations").find_by(symb => content.id).destroy
     end
+    self.destroy
   end
 
 end
