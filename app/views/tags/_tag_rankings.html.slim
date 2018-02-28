@@ -1,2 +1,2 @@
 h4.text-primary.font-weight-bold.mt-3 Bookタグランキング
-= render partial: "tags/tag_ranking", collection: Tag.all.order(votes_length: "desc").limit(5), as: "tag"
+= render partial: "tags/tag_ranking", collection: Tag.all.order(votes_length: "desc").limit(3), as: "tag"

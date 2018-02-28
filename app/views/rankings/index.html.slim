@@ -38,9 +38,9 @@
             .input-group.mb-3
               .input-group-prepend
                 select#search_kind.custom-select(v-model="condition_form.kind")
-                  option(selected) カテゴリ
-                  option 著者
                   option タグ
+                  option 著者
+                  option(selected) カテゴリ
               input.form-control(placeholder="name" v-model="condition_form.name")
               .input-group-append
                 button.btn.btn-primary(type="submit") 追加

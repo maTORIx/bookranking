@@ -1,2 +1,2 @@
-= button_to author_deletable.name, "/authors/#{author_deletable.id}" , method: :delete , title: "delete this tag", class: "btn btn-danger float-left btn-sm mr-1", data: {confirm: "著者を削除します。よろしいですか。"}
+= button_to author_deletable.name, "/books/#{@book.id}/authors/#{CGI.escape(author_deletable.name)}" , method: :delete , title: "delete this tag", class: "btn btn-danger float-left btn-sm mr-1", data: {confirm: "著者を削除します。よろしいですか。"}
 

@@ -1,6 +1,7 @@
 .container
   .row
     .col-md-12
+      
       table.table
         thead
           tr
@@ -12,3 +13,8 @@
             th Deny
         tbody
           = render partial: "requests/book_edit_request", collection: @book_edit_requests
+      - if @book_edit_requests.length == 0
+        h1 本日のタスク終了
+        h3 お疲れ様です
+        h6 YATTA YATTA
+      = paginate @book_edit_requests, theme: "twitter-bootstrap-4"

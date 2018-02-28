@@ -1,1 +1,2 @@
 = render partial: "books/book_list_middle_counted", locals: {books: Book.order(score: "desc").limit(3).includes(:tags, :authors, :categories), title: "BookRanking"}
+a(href="/rankings") 総合ランキングはこちら

@@ -7,6 +7,8 @@
       .mw-25.w-25
         img.mw-100.w-100(alt="img" src="#{book.cover_image.url}")
       .book-status.w-75
+        - if ![:tag_score].include?(@order_param)
+          h4 #{Book.column_japanese_names[@order_param]}: #{book[@order_param]} #{Book.classifiers[@order_param]}
         .stars
           .stars-box
             #star.star(style="width: #{book.all_review_point * 21}px;") ★★★★★
@@ -16,11 +18,17 @@
         = render book.authors
         = render book.tag_relations.alive
 
+        
         - if book.description.length < 100
           p.break #{book.description}
         - else
           p.break #{book.description.slice(0, 100)}...
         br
+
+        - if @order_param == :tag_score
+          p #{params[:tags]}
+          = render partial: "tags/tag_election", collection: book.tag_relations.where(tag_name: params[:tags].split(" ")), as: :tag_relation
+
         p 総合得点: #{book.score}, レビュー: #{book.review_length}件, 本棚: #{book.shelfed_length}件
 
 .d-none.d-md-block
@@ -36,6 +44,9 @@
             a(href="/books/#{book.id}") #{book.title}
           .card-body
             .book-status
+              - if ![:tag_score].include?(@order_param)
+                h4 #{Book.column_japanese_names[@order_param]}: #{book[@order_param]} #{Book.classifiers[@order_param]}
+
               .stars
                 .stars-box
                   #star.star(style="width: #{book.all_review_point * 21}px;") ★★★★★
@@ -50,4 +61,8 @@
               - else
                 p.break #{book.description.slice(0, 100)}...
               br
+              - if @order_param == :tag_score
+                p #{params[:tags]}
+                = render partial: "tags/tag_election", collection: book.tag_relations.where(tag_name: params[:tags].split(" ")), as: :tag_relation
+
               p 総合得点: #{book.score}, レビュー: #{book.review_length}件, 本棚: #{book.shelfed_length}件

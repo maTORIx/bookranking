@@ -3,4 +3,4 @@
   .card-body.over-x-hidden
     .d-flex.flex-row(style="height: 150px;")
       //.bg-secondary.h-85.rounded.text-white.font-weight-bold.vertical-text.text-center(href="/rankings?tags=#{tag.name}") #{tag.name}
-      = render partial: "tags/tag_relation", collection: tag.tag_relations.all.order(score: "desc").limit(5).includes(:book)
+      = render partial: "tags/tag_relation", collection: tag.tag_relations.all.order(score: "desc").limit(5).joins(:book)

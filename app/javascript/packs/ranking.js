@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function(){
     el: "#app",
     data: {
       condition_edit: false,
-      condition_form: {kind: "カテゴリ", name: ""},
+      condition_form: {kind: "タグ", name: ""},
       condition: getCondition(),
       condition_kind: {"著者": "authors", "カテゴリ": "categories", "タグ": "tags"}
     },

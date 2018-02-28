@@ -44,7 +44,8 @@ class Book < ApplicationRecord
       review_point: "点",
       all_review_length: "件",
       review_length: "件",
-      shelfed_length: "件"
+      shelfed_length: "件",
+      pub_date: ""
     }
   end
 
@@ -54,7 +55,8 @@ class Book < ApplicationRecord
       all_review_point: "総レビュー評価",
       review_point: "レビュー評価",
       all_review_length: "総レビュー件数",
-      shelfed_length: "本棚に入れた数"
+      shelfed_length: "本棚に入れた数",
+      pub_date: "出版日",
     }
   end
 
@@ -63,7 +65,23 @@ class Book < ApplicationRecord
   end
 
   def generate_score
-    self.all_review_point * 20
+    reviews = self.reviews.joins(:user)
+    easy_reviews = self.easy_reviews
+    easy_review_weight = 5
+
+    sum = reviews.map {|review| review.user.reliability}.sum + (easy_reviews.length * easy_review_weight)
+    points = reviews.map {|review| review.point * review.user.reliability}.sum
+    points += easy_reviews.map {|review| review.point * easy_review_weight}
+    score = (points / sum) * 20
+
+    (1..12).each do |num|
+      if num.month.ago < self.reviews.order(created_at: "desc").pluck(:created_at).first
+        score - num.to_f / 2
+      end
+    end
+
+    score
+
   end
 
   def update_info
@@ -91,10 +109,10 @@ class Book < ApplicationRecord
     Book.all.each {|book| book.update_info}
     end
 
-  def edit_request(params)
+  def edit_request(params, user)
     for key in params
       if Book.column_names.include?(key) && self[key.to_sym].to_s != params[key.to_sym]
-        self.book_edit_requests.create(target_column: key.to_s, action: "update", content: params[key.to_sym])
+        self.book_edit_requests.create(target_column: key.to_s, action: "update", content: params[key.to_sym], user_id: user.id)
       end
     end
   end

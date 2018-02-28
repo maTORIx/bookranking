@@ -21,14 +21,14 @@ Rails.application.routes.draw do
     resources :reviews, only: [:index, :create, :new]
     resources :easy_reviews, only: [:create]
     resources :tags, only:[:create, :update], param: :name
-    resources :authors, only:[:create]
+    resources :authors, only:[:create, :destroy], param: :name
   end
 
   resources :rankings, only: [:index] do
     collection do
       resources :tags, only: [:index]
       resources :authors, only: [:index]
-      resources :stars, only: [:index]
+      resources :categories, only: [:index]
     end
   end
 

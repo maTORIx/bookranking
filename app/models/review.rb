@@ -10,8 +10,9 @@ class Review < ApplicationRecord
   after_update :update_book
 
   after_create do
-    self.user.reliability += 0.5
-    self.user.reliability.save!
+    user = self.user
+    user.reliability += 0.5
+    user.save!
   end
 
   def update_book

@@ -5,8 +5,9 @@ class BookEditRequest < ApplicationRecord
   belongs_to :user
 
   after_create do
-    self.user.reliability += 2
-    self.user.reliability.save!
+    user = self.user
+    user.reliability += 2
+    user.save!
   end
 
   def accept

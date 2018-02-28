@@ -8,7 +8,8 @@ class TagVote < ApplicationRecord
   end
 
   after_create do
-    self.user.reliability += 0.1
-    self.user.reliability.save!
+    user = self.user
+    user.reliability += 0.1
+    user.save!
   end
 end
