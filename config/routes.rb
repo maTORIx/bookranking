@@ -15,7 +15,9 @@ Rails.application.routes.draw do
     get "/confirm/:confirm_hash", to: "users#confirm"
   end
 
-  resources :reviews, only: [:show, :edit, :update]
+  resources :reviews, only: [:show, :edit, :update] do
+    post "/favorite", action: "favorite"
+  end
 
   resources :books, except: [:index]  do
     resources :reviews, only: [:index, :create, :new]

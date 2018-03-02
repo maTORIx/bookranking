@@ -8,7 +8,7 @@ class BooksController < ApplicationController
     @reviews = Review.where(book_id: params[:id]).limit(10).includes(:user)
     @tag = Tag.new
     @book_shelf_relation = BookShelfRelation.new
-    @tag_chart = @book.tag_relations.alive.map {|tag| [tag.tag_name, tag.score]}
+    @tag_chart = @book.tag_relations.alive.order(score: "desc").map {|tag| [tag.tag_name, tag.score]}
   end
 
   def new

@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function(){
           body: JSON.stringify({"point": stars.length})
         }).then((resp) => {
           if (resp.status >= 200 && resp.status <= 300) {
-            this.notifies.push("Sended")
+            this.notifies.push("投票しました")
             return
           } else if(resp.status == 403) {
             throw "すでに投票しています"

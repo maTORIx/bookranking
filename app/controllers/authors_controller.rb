@@ -3,8 +3,9 @@ class AuthorsController < ApplicationController
 
   def create
     @book = Book.find(params[:book_id])
+    @author = Author.find_or_create_by!(name: params[:author][:name])
     if @book != nil
-      if !Author.create_request(@book, params[:author][:name], current_user)
+      if !@author.create_request(@book, params[:author][:name], current_user)
         redirect_to @book, flash: {notifies: ["エラーが発生しました"]} and return
       end
     end

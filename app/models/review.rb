@@ -13,9 +13,7 @@ class Review < ApplicationRecord
   after_update :update_book
 
   after_create do
-    user = self.user
-    user.reliability += 0.5
-    user.save!
+    user.up_reliability(:review)
   end
 
   def update_book
@@ -33,5 +31,11 @@ class Review < ApplicationRecord
     else
       return self.review_favorites.create(user_id: user.id)
     end
+  end
+
+  def update_info
+    @review = self
+    @review.favorites_count = self.review_favorites.count
+    @review.save!
   end
 end

@@ -19,13 +19,13 @@ class Author < ApplicationRecord
     Book.where(id: Author.find_books_id(authors))
   end
 
-  def self.create_request(book, name, user)
+  def create_request(book, name, user)
     if !book.tags.pluck(:name).include?(name)
       return book.book_edit_requests.create(target_column: "author", action: "create", content: self.name, user_id: user.id)
     end
   end
 
-  def self.destroy_request(book, name, user)
+  def destroy_request(book, name, user)
     if !book.tag_relations.pluck(:tag_name).include?(name)
       return book.book_edit_requests.create(target_column: "author", action: "destroy", content: self.name, user_id: user.id)
     end

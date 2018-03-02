@@ -12,16 +12,16 @@ class BookEditRequest < ApplicationRecord
 
   def accept
     @book = self.book
-    if self.action == "edit"
+    puts "------------------------------------------------"
+    p self.action
+    if self.action == "update"
       @book.update!(self.target_column.to_sym => self.content)
     elsif self.action == "create"
-
-      content = @book.send(self.target_column + "s").find_or_create_by!(name: self.content)
+      content = target_column.camelcase.constantize.find_by(name: self.content)
       symb = (self.target_column + "_id").to_sym
       @book.send(self.target_column + "_relations").find_or_create_by!(symb => content.id)
 
     elsif self.action == "destroy"
-
       content = @book.send(self.target_column + "s").find_by(name: self.content)
       symb = (self.target_column + "_id").to_sym
       @book.send(self.target_column + "_relations").find_by(symb => content.id).destroy

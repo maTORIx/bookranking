@@ -29,4 +29,15 @@ class User < ApplicationRecord
     end
   end
 
+  def up_reliability(type)
+    score = {
+      tag_vote: 0.1,
+      review: 0.5,
+      edit_request: 0.5,
+      review_favorite: 0.5
+    }[type]
+    self.reliability = score
+    self.save!
+  end
+
 end

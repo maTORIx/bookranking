@@ -41,7 +41,7 @@
                     button.btn.btn-secondary(type="button" data-dismiss="modal") Close
                     button.btn.btn-primary(type="submit") Save
 
-        = render @book.tags
+        = render @book.tag_relations.order(score: "desc")
         br
         br
         table.table

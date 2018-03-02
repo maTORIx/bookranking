@@ -24,7 +24,7 @@ class RequestsController < ApplicationController
 
   def destroy
     @book_edit_request = BookEditRequest.find(params[:id])
-    @book.destroy
+    @book_edit_request.destroy
     redirect_to action: "index"
   end
 end
