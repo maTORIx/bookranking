@@ -11,5 +11,6 @@
       .info
         a.book_title(href="/books/#{@book.id}" title="#{@book.title}") #{@book.title}
         .date #{review.created_at.strftime("%Y年%m月%d日")}
-  .card-body
-    p.break #{review.body}
+  - if review.body != ""
+    .card-body
+      p.break #{review.body}

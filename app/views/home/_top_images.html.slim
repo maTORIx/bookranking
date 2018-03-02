@@ -1,11 +1,13 @@
 #homeControls.carousel.slide.rounded.border.border-dark(data-ride="carousel")
         .carousel-inner
-          .carousel-item.active
-            #top_images.w-100.d-flex.flex-row(style="overflow-x: scroll; height: 300px;")
-              = render partial: "books/book_info_image", collection: Book.all.order(score: "desc").limit(10), as: :book
+          
           - if !logged_in?
-            .carousel-item
+            .carousel-item.active
               img.d-block.mx-auto(alt="Second slide" src="/uploads/assets/call.png" style="height: 300px;" onclick="location.href = '/signup'")
+          - else
+            .carousel-item.active
+              #top_images.w-100.d-flex.flex-row(style="overflow-x: scroll; height: 300px;")
+                = render partial: "books/book_info_image", collection: Book.all.order(score: "desc").limit(10), as: :book
         a.carousel-control-prev(data-slide="prev" href="#homeControls" role="button")
           span.carousel-control-prev-icon(aria-hidden="true")
           span.sr-only.text-dark Previous

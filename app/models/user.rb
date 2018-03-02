@@ -12,14 +12,21 @@ class User < ApplicationRecord
   has_many :book_shelf_relations
   has_many :books, through: :book_shelf_relations
 
+  has_many :review_favorites
+  has_many :reviews, through: :review_favorites
+
   def generate_confirm_hash
     self.confirm_hash = SecureRandom.base64(20)
   end
 
   def email_confirm
-    p "--------------------------------------------------------------"
-    p ENV["GMAIL_ADDRESS"]
     UserMailer.email_confirm(self).deliver_later
+  end
+
+  def is_favorite(review)
+    if !instance_variable_defined?(:@favorite_list)
+      @favorite_list = self.review_favorites
+    end
   end
 
 end

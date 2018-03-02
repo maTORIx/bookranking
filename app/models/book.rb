@@ -71,7 +71,7 @@ class Book < ApplicationRecord
 
     sum = reviews.map {|review| review.user.reliability}.sum + (easy_reviews.length * easy_review_weight)
     points = reviews.map {|review| review.point * review.user.reliability}.sum
-    points += easy_reviews.map {|review| review.point * easy_review_weight}
+    points += easy_reviews.map {|review| review.point * easy_review_weight}.sum
     score = (points / sum) * 20
 
     (1..12).each do |num|

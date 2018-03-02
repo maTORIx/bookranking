@@ -1,13 +1,14 @@
 class BooksController < ApplicationController
   
   before_action :user_only
-  skip_before_action :user_only, except: [:show]
+  skip_before_action :user_only, only: [:show]
 
   def show
-    @book = Book.find(params[:id])
-    @reviews = @book.reviews.page(1).per(10).includes(:user)
+    @book = Book.includes(:tag_relations, :authors, :categories).find(params[:id])
+    @reviews = Review.where(book_id: params[:id]).limit(10).includes(:user)
     @tag = Tag.new
     @book_shelf_relation = BookShelfRelation.new
+    @tag_chart = @book.tag_relations.alive.map {|tag| [tag.tag_name, tag.score]}
   end
 
   def new

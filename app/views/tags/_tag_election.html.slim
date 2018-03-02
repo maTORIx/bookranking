@@ -1,10 +1,10 @@
-a(href="/rankings?tags=#{tag_relation.tag.name}") #{tag_relation.tag.name}(スコア: #{tag_relation.score})
+a(href="/rankings?tags=#{tag_relation.tag_name}") #{tag_relation.tag_name}(スコア: #{tag_relation.score})
 .card
   .card-content
     .w-100.text-center
               
-      = button_to "賛成", book_tag_path(name: tag_relation.tag.name, book_id: tag_relation.book.id, is_correct: true), method: :put, class: "btn btn-success btn-sm float-left"
-      = button_to "反対", book_tag_path(name: tag_relation.tag.name, book_id: tag_relation.book.id, is_correct: false), method: :put, class: "btn btn-danger btn-sm float-right"
+      = button_to "◯", book_tag_path(name: tag_relation.tag_name, book_id: tag_relation.book.id, is_correct: true), method: :put, class: "btn btn-success btn-sm float-left"
+      = button_to "×", book_tag_path(name: tag_relation.tag_name, book_id: tag_relation.book.id, is_correct: false), method: :put, class: "btn btn-danger btn-sm float-right"
 
       .progress(style="font-size: 0.875rem; line-height: 1.5;")
         - if tag_relation.alive

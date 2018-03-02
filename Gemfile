@@ -40,6 +40,9 @@ gem 'dotenv-rails'
 gem 'bootstrap'
 gem 'jquery-rails'
 
+gem "chartkick"
+gem 'chart-js-rails'
+
 gem 'webpacker', '~> 3.0'
 
 group :development, :test do

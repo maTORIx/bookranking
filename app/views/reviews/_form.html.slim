@@ -11,7 +11,7 @@
             = f.select :point, [1,2,3,4,5], class: "form-control custom-select", required: true
           .form-group
             = f.label :title
-            = f.text_field :title, placeholder: "null ok", required: false, class: "form-control"
+            = f.text_field :title, placeholder: "必須", required: true, class: "form-control"
           .form-group
             = f.label :body
             = f.text_area :body, class: "form-control"

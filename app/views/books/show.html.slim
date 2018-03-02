@@ -1,12 +1,13 @@
-= javascript_pack_tag "books.js"
-script(src="https://www.google.com/recaptcha/api.js")
+= content_for :head
+  = javascript_pack_tag "books.js"
+  = javascript_include_tag "https://www.gstatic.com/charts/loader.js"
+ 
 //div(class="g-recaptcha" data-sitekey="6LdP40gUAAAAAKHizJBxx_gnGjvgjJZDRfAmQQXB" data-callback="onSubmit" data-size="invisible")
 #notify
-  div(v-for="notify in notifies")
-    .alert.alert-warning.alert-dismissible.fade.show(role='alert')
-      button.close(type='button' data-dismiss='alert' aria-label='Close')
-          span(aria-hidden='true') &times;
-      = "{{notify}}"
+  .alert.alert-warning.alert-dismissible.fade.show(role='alert' v-for="notify in notifies")
+    button.close(type='button' data-dismiss='alert' aria-label='Close')
+        span(aria-hidden='true') &times;
+    = "{{notify}}"
 
   - if flash[:notifies] != nil
     - flash[:notifies].each do |notify|
@@ -30,6 +31,9 @@ script(src="https://www.google.com/recaptcha/api.js")
         .card-header #{@book.title} レビュー
         .card-body
           = render @reviews
+      h4.text-secondary 成分タグ表
+      div
+        = pie_chart @tag_chart, defer: true, suffix: "%"
       h4.text-secondary 成分タグ投票
       .card
         .card-content

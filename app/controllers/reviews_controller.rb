@@ -1,7 +1,7 @@
 class ReviewsController < ApplicationController
   
   before_action :user_only
-  skip_before_action :user_only, only: [:index]
+  skip_before_action :user_only, except: [:index]
   
   def index
     @book = Book.find(params[:book_id])
@@ -48,6 +48,12 @@ class ReviewsController < ApplicationController
       redirect_to action: "edit", flash: {notifies: ["エラーが発生しました"]} and return
     end
     redirect_to @review.book, flash: {notifies: ["レビューを編集しました"]}and return
+  end
+
+  def favorite
+    @review = Review.find(params[:id])
+    @review.favorite(current_user)
+    redirect_back(fallback_location: root_path)
   end
 
 end

@@ -6,6 +6,9 @@ class Review < ApplicationRecord
   belongs_to :user
   belongs_to :book
 
+  has_many :review_favorites
+  has_many :users, through: :review_favorites
+
   after_create :update_book
   after_update :update_book
 
@@ -17,14 +20,18 @@ class Review < ApplicationRecord
 
   def update_book
     @book = self.book
-    @book.review_length = @book.reviews.length
-    @book.review_point = @book.reviews.average(:point).to_f
-    @book.all_review_length = @book.easy_review_length + @book.review_length
-    @book.all_review_point = @book.generate_all_review_point
-    @book.save!
+    @book.update_info
   end
 
   def has_permission?(user)
     user.id == self.user_id
+  end
+
+  def favorite(user)
+    if self.review_favorites.exists?(user_id: user.id)
+      return self.review_favorites.find_by(user_id: user.id).destroy
+    else
+      return self.review_favorites.create(user_id: user.id)
+    end
   end
 end
